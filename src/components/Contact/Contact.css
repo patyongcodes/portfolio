@@ -1,3 +1,252 @@
 .contact {
-  padding: 4rem 2rem;
+  background-color: #ffffff;
+  padding: 100px 24px;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.contact-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* 1. LEFT SIDE - CONTENT */
+.contact-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* REFINED AVAILABILITY INDICATOR */
+.availability-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 12px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+
+.indicator-dot-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+.indicator-dot-pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: statusPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  opacity: 0.6;
+}
+
+@keyframes statusPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70%, 100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.indicator-text {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #374151;
+  text-transform: uppercase;
+}
+
+.contact-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin: 0 0 20px 0;
+}
+
+.contact-subtitle {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #4b5563;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* 2. RIGHT SIDE - MINIMAL ACTION LIST */
+.contact-right {
+  width: 100%;
+}
+
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* MINIMAL ACTION BUTTON */
+.minimal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+  text-decoration: none;
+  color: #111827;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.minimal-btn:hover {
+  border-color: #111827;
+  background-color: #f9fafb;
+  transform: translateX(4px);
+}
+
+.btn-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.btn-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.btn-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.btn-arrow {
+  font-size: 18px;
+  font-weight: 500;
+  color: #9ca3af;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.minimal-btn:hover .btn-arrow {
+  color: #111827;
+  transform: translate(2px, -2px);
+}
+
+/* DARK VARIATION FOR CV BUTTON */
+.minimal-btn.dark {
+  background-color: #111827;
+  border-color: #111827;
+}
+
+.minimal-btn.dark:hover {
+  background-color: #1f2937;
+  border-color: #1f2937;
+}
+
+.btn-label.light {
+  color: #9ca3af;
+}
+
+.btn-value.light {
+  color: #ffffff;
+}
+
+.btn-arrow.light {
+  color: #9ca3af;
+}
+
+.minimal-btn.dark:hover .btn-arrow.light {
+  color: #ffffff;
+  transform: translateY(2px);
+}
+
+/* SOCIALS ROW */
+.social-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.social-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-icon {
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.social-icon:hover {
+  color: #111827;
+  transform: translateY(-2px);
+}
+
+/* EQUAL & LARGER SIZE FOR ALL ICONS */
+.social-icon svg {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 868px) {
+  .contact {
+    padding: 60px 20px;
+  }
+
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-title {
+    font-size: 40px;
+  }
 }

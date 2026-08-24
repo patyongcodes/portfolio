@@ -1,3 +1,7 @@
+import { useState, useEffect } from 'react';
+import gmailIcon from '../../assets/images/gmail.png';
+import instagramIcon from '../../assets/images/instagram.png';
+import linkedinIcon from '../../assets/images/linkedin.png';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -9,39 +13,112 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHoverNearTop, setIsHoverNearTop] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    const handleMouseMove = (e) => {
+      if (e.clientY <= 80) {
+        setIsHoverNearTop(true);
+      } else {
+        setIsHoverNearTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+
+    const targetElement = document.querySelector(targetId);
+    if (!targetElement) return;
+
+    const headerOffset = 20;
+    const startPosition = window.scrollY || window.pageYOffset;
+    const targetPosition =
+      targetElement.getBoundingClientRect().top + startPosition - headerOffset;
+    const distance = targetPosition - startPosition;
+    
+    // Reduced duration from 900ms to 500ms for fast feedback
+    const duration = 500; 
+    const startTime = performance.now();
+
+    // easeOutCubic: Accelerates instantly on frame 1 without delay
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = easeOutCubic(progress);
+
+      window.scrollTo(0, startPosition + distance * easeProgress);
+
+      if (elapsed < duration) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const isHeaderVisible = !isScrolled || isHoverNearTop || isMenuOpen;
+
   return (
-    <header className="site-header">
-      <a href="#home" className="logo">
+    <header className={`site-header ${!isHeaderVisible ? 'header-hidden' : ''}`}>
+      <a 
+        href="#home" 
+        className="logo" 
+        onClick={(e) => handleNavClick(e, '#home')}
+      >
         codebypat
       </a>
 
-      <nav className="nav">
+      <button 
+        className={`menu-toggle ${isMenuOpen ? 'is-active' : ''}`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle Menu"
+        aria-expanded={isMenuOpen}
+      >
+        <span className="hamburger-bar" />
+        <span className="hamburger-bar" />
+        <span className="hamburger-bar" />
+      </button>
+
+      <nav className={`nav ${isMenuOpen ? 'is-open' : ''}`}>
         {NAV_LINKS.map((link) => (
-          <a key={link.href} href={link.href} className="nav-link">
+          <a
+            key={link.href}
+            href={link.href}
+            className="nav-link"
+            onClick={(e) => handleNavClick(e, link.href)}
+          >
             {link.label}
           </a>
         ))}
       </nav>
 
       <div className="socials">
-        <a href="mailto:hello@codebypat.com" aria-label="Email" className="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 6.5C2 5.67 2.67 5 3.5 5h17c.83 0 1.5.67 1.5 1.5v11c0 .83-.67 1.5-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11Z" stroke="#EA4335" strokeWidth="1.5"/>
-            <path d="M3 6.5 12 13l9-6.5" stroke="#EA4335" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        <a href="mailto:patrick.carpio1604@gmail.com" aria-label="Email" className="social-icon">
+          <img src={gmailIcon} alt="Gmail" />
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="#E1306C" strokeWidth="1.5"/>
-            <circle cx="12" cy="12" r="4.2" stroke="#E1306C" strokeWidth="1.5"/>
-            <circle cx="17.4" cy="6.6" r="1.1" fill="#E1306C"/>
-          </svg>
+        <a href="https://www.instagram.com/pty.ng?igsi=b3c0MzNuZHh6cG5l" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
+          <img src={instagramIcon} alt="Instagram" />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2.5" y="2.5" width="19" height="19" rx="4" fill="#0A66C2"/>
-            <path d="M7.5 10v6.5M7.5 7.2v.1M11.2 16.5V10M11.2 12.6c0-1.6.9-2.6 2.2-2.6 1.3 0 2.1 1 2.1 2.6v3.9" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/>
-          </svg>
+        <a href="https://www.linkedin.com/in/patrick-carpio-b71227430" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
+          <img src={linkedinIcon} alt="LinkedIn" />
         </a>
       </div>
     </header>

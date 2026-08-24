@@ -1,3 +1,317 @@
 .about {
-  padding: 4rem 2rem;
+  background-color: #ffffff;
+  padding: 80px 24px;
+  box-sizing: border-box;
+  color: #111827;
+}
+
+/* ===========================
+   SCROLL INTRO ANIMATIONS
+   =========================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered entrance delays for interest cards */
+.interest-card:nth-child(1) { transition-delay: 0.08s; }
+.interest-card:nth-child(2) { transition-delay: 0.16s; }
+.interest-card:nth-child(3) { transition-delay: 0.24s; }
+.interest-card:nth-child(4) { transition-delay: 0.32s; }
+
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
+/* 1. HEADER & PROFILE IMAGE */
+.about-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.about-header-text {
+  flex: 1;
+}
+
+.about-heading {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+}
+
+.about-bio {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin: 0;
+}
+
+.about-profile-frame {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.about-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* SUBHEADINGS & DESCRIPTIONS */
+.about-subheading {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px 0;
+}
+
+.about-block-desc {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0 0 28px 0;
+}
+
+/* 2. EDUCATION SECTION (PURE TEXT) */
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.education-item {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.education-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.education-degree {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.education-school {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4b5563;
+  margin: 0 0 8px 0;
+}
+
+.education-details {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* 3. OUTSIDE THE SOFTWARE WORLD */
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.interest-card {
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Smooth transition override after entrance */
+.interest-card.is-visible {
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.interest-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.interest-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.interest-desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* 4. PHOTO GALLERY — CENTERED DRAGGABLE CARD DECK */
+.gallery-deck-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0 10px;
+}
+
+.gallery-deck-container {
+  position: relative;
+  width: 280px;
+  aspect-ratio: 3 / 4;
+  perspective: 1000px;
+  user-select: none;
+  touch-action: none;
+}
+
+.gallery-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #e5e7eb;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease;
+  will-change: transform, opacity;
+}
+
+.gallery-card.top-card {
+  cursor: grab;
+}
+
+.gallery-card.top-card.dragging {
+  cursor: grabbing;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* DECK STACK POSITIONS */
+.gallery-card[data-index="0"] {
+  z-index: 10;
+}
+
+.gallery-card[data-index="0"] .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-card[data-index="1"] {
+  z-index: 9;
+  transform: translate(8px, 10px) rotate(3deg) scale(0.97);
+}
+
+.gallery-card[data-index="2"] {
+  z-index: 8;
+  transform: translate(-8px, 18px) rotate(-3deg) scale(0.94);
+}
+
+.gallery-card[data-index="3"] {
+  z-index: 7;
+  transform: translate(4px, 26px) rotate(1.5deg) scale(0.91);
+}
+
+.gallery-card[data-index="4"] {
+  z-index: 6;
+  transform: translate(-4px, 32px) rotate(-1.5deg) scale(0.88);
+  opacity: 0.7;
+}
+
+.gallery-card:nth-child(n+6) {
+  z-index: 1;
+  transform: translate(0px, 36px) scale(0.85);
+  opacity: 0;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) {
+  .interests-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 48px 16px;
+  }
+
+  .about-container {
+    gap: 48px;
+  }
+
+  .about-header-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .about-profile-frame {
+    width: 100px;
+    height: 100px;
+  }
+
+  .about-heading {
+    font-size: 32px;
+  }
+
+  .about-subheading {
+    font-size: 22px;
+  }
+
+  .about-bio {
+    font-size: 16px;
+  }
+
+  .interests-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-deck-container {
+    width: 230px;
+  }
 }
