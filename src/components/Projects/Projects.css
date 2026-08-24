@@ -73,22 +73,28 @@
   box-sizing: border-box;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
   will-change: transform;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease;
+  /* Fast 0.2s transition back to default state when cursor/touch leaves */
+  transition: transform 0.2s ease-out,
+              box-shadow 0.2s ease-out,
+              border-color 0.2s ease-out;
 }
 
-/* ULTRA-SMOOTH ZOOM-IN HOVER EFFECT (NO ROTATION) */
-.project-card.reveal-on-scroll:hover,
-.project-card.is-visible:hover,
-.project-card:hover {
-  transform: scale(1.04) translateY(-6px) !important;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease !important;
-  border-color: var(--color-primary, #4F46E5);
-  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.12);
-  z-index: 10;
+/* DESKTOP HOVER ONLY (Prevents sticky zoom on mobile touch) */
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: scale(1.04) translateY(-6px) !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease !important;
+    border-color: var(--color-primary, #4F46E5);
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+  }
+
+  .project-card:hover .coming-soon-placeholder,
+  .project-card:hover .card-divider {
+    border-color: var(--color-primary, #4F46E5);
+  }
 }
 
 /* THUMBNAIL BOX */
@@ -121,11 +127,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.project-card:hover .coming-soon-placeholder {
-  border-color: var(--color-primary, #4F46E5);
+  transition: border-color 0.2s ease;
 }
 
 .coming-soon-placeholder span {
@@ -226,11 +228,7 @@
   border-top: 1.5px solid #111111;
   margin: 0 0 8px 0;
   width: 100%;
-  transition: border-color 0.3s ease;
-}
-
-.project-card:hover .card-divider {
-  border-color: var(--color-primary, #4F46E5);
+  transition: border-color 0.2s ease;
 }
 
 .card-cta {
@@ -288,14 +286,15 @@
     display: none;
   }
 
+  /* Smooth entry without locking transform properties */
   .project-card:nth-child(n+4) {
-    animation: mobileCardExpand 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: mobileCardExpand 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @keyframes mobileCardExpand {
     0% {
       opacity: 0;
-      transform: translateY(24px) scale(0.97);
+      transform: translateY(18px) scale(0.98);
     }
     100% {
       opacity: 1;
@@ -323,25 +322,18 @@
     border-radius: 999px;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .view-more-btn:hover,
   .view-more-btn:active {
     background: #111111;
     color: #ffffff;
     border-color: #111111;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    transform: scale(0.97);
   }
 
   .view-more-btn svg {
-    transition: transform 0.25s ease;
-  }
-
-  .view-more-btn:hover svg,
-  .view-more-btn:active svg {
-    transform: translateY(2px);
+    transition: transform 0.2s ease;
   }
 
   .card-thumbnail-box {

@@ -31,7 +31,7 @@
   text-align: center;
 }
 
-/* AVATAR & TILES */
+/* AVATAR CONTAINER */
 .avatar {
   position: relative;
   width: 140px;
@@ -45,123 +45,63 @@
   flex-shrink: 0;
 }
 
-.full-avatar {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: scale(1.15);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.avatar:hover .full-avatar,
-.avatar.is-revealed .full-avatar {
-  transform: scale(1.28);
-}
-
-.gojo-full {
-  z-index: 4;
-  opacity: 1;
-  transition: opacity 0.2s ease 0.25s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.avatar:hover .gojo-full,
-.avatar.is-revealed .gojo-full {
-  opacity: 0;
-  transition: opacity 0.15s ease 0s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.patyong-full {
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.15s ease 0s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.avatar:hover .patyong-full,
-.avatar.is-revealed .patyong-full {
-  opacity: 1;
-  transition: opacity 0.3s ease 0.38s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.avatar::after {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.18;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 5;
-  animation: smoothNoiseDrift 0.8s steps(6) infinite;
-}
-
+/* TILE GRIDS */
 .tile-grid {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  transform: scale(1.15);
+  grid-template-columns: repeat(var(--grid-size, 16), 1fr);
+  grid-template-rows: repeat(var(--grid-size, 16), 1fr);
+  /* 1:1 scale ensures complete, un-cropped image framing */
+  transform: scale(1);
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.patyong-grid {
+  z-index: 2;
+}
+
+.gojo-grid {
+  z-index: 3;
 }
 
 .avatar:hover .tile-grid,
 .avatar.is-revealed .tile-grid {
-  transform: scale(1.28);
+  transform: scale(1);
 }
 
 .tile {
-  background-size: 800% 800%;
+  background-size: calc(var(--grid-size, 16) * 100%) calc(var(--grid-size, 16) * 100%);
   background-repeat: no-repeat;
-  will-change: transform, opacity, filter;
+  will-change: opacity, transform;
+  /* Scales individual tile edges inward/outward to erase hairline gaps without zooming the image */
+  transform: scale(1.08); 
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
+/* TWO-PHASE PIXEL DISSOLVE */
 .gojo-tile {
   opacity: 1;
-  transform: translate(0, 0) scale(1);
-  filter: blur(0px);
-  transition: 
-    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    filter 0.4s ease var(--noise-delay-imm);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay);
 }
 
 .avatar:hover .gojo-tile,
 .avatar.is-revealed .gojo-tile {
   opacity: 0;
-  transform: translate(var(--noise-x), var(--noise-y)) scale(var(--noise-scale));
-  filter: blur(3px);
-  transition: 
-    opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    filter 0.35s ease var(--noise-delay-imm);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--white-delay);
 }
 
 .patyong-tile {
   opacity: 0;
-  transform: translate(var(--noise-x), var(--noise-y)) scale(var(--noise-scale));
-  filter: blur(3px);
-  transition: 
-    opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-imm),
-    filter 0.35s ease var(--noise-delay-imm);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--white-delay);
 }
 
 .avatar:hover .patyong-tile,
 .avatar.is-revealed .patyong-tile {
   opacity: 1;
-  transform: translate(0, 0) scale(1);
-  filter: blur(0px);
-  transition: 
-    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-del),
-    transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) var(--noise-delay-del),
-    filter 0.4s ease var(--noise-delay-del);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay);
 }
 
 /* ENTRANCE ANIMATIONS */
@@ -172,35 +112,24 @@
 .hero-cta {
   opacity: 0;
   will-change: transform, opacity;
-  animation: heroEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .avatar { animation-delay: 0.10s; }
-.hero-greeting { animation-delay: 0.22s; }
-.hero-headline { animation-delay: 0.34s; }
-.hero-description { animation-delay: 0.46s; }
-.hero-cta { animation-delay: 0.58s; }
+.hero-greeting { animation-delay: 0.20s; }
+.hero-headline { animation-delay: 0.30s; }
+.hero-description { animation-delay: 0.40s; }
+.hero-cta { animation-delay: 0.50s; }
 
 @keyframes heroEntrance {
   0% {
     opacity: 0;
-    transform: translateY(24px) scale(0.97);
-    filter: blur(4px);
+    transform: translateY(20px) scale(0.98);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0px);
   }
-}
-
-@keyframes smoothNoiseDrift {
-  0%   { transform: translate(0, 0); }
-  20%  { transform: translate(-3%, 2%); }
-  40%  { transform: translate(2%, -3%); }
-  60%  { transform: translate(-2%, -1%); }
-  80%  { transform: translate(3%, 1%); }
-  100% { transform: translate(0, 0); }
 }
 
 /* DESKTOP TYPOGRAPHY */
@@ -256,7 +185,6 @@
               background-color 0.3s ease;
 }
 
-/* Subtle glowing shimmer streak */
 .hero-cta::before {
   content: '';
   position: absolute;

@@ -3,31 +3,40 @@ import profilePhoto from '../../assets/images/patyong.png';
 import gojoPhoto from '../../assets/images/gojo.png';
 import './Hero.css';
 
-const GRID_SIZE = 8;
-const TRANSITION_DELAY_OFFSET = 0.25;
+// Increased from 8 to 16 for significantly smaller, high-density pixel tiles
+const GRID_SIZE = 16;
+const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
 
-function pseudoRandom(x, y) {
-  const sin = Math.sin(x * 12.9898 + y * 78.233);
-  return Math.abs(sin - Math.floor(sin));
+function getShuffledSequence(length) {
+  const arr = Array.from({ length }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-const TILES = Array.from({ length: GRID_SIZE * GRID_SIZE }, (_, i) => {
+const phase1Order = getShuffledSequence(TOTAL_TILES);
+const phase2Order = getShuffledSequence(TOTAL_TILES);
+
+const TILES = Array.from({ length: TOTAL_TILES }, (_, i) => {
   const row = Math.floor(i / GRID_SIZE);
   const col = i % GRID_SIZE;
   const step = 100 / (GRID_SIZE - 1);
 
-  const noiseDelay = (pseudoRandom(row, col) * 0.35).toFixed(3);
-  const noiseX = ((pseudoRandom(row + 1, col) - 0.5) * 24).toFixed(1);
-  const noiseY = ((pseudoRandom(row, col + 1) - 0.5) * 24).toFixed(1);
-  const noiseScale = (0.6 + pseudoRandom(col, row) * 0.8).toFixed(2);
+  // Phase 1: White-out phase (0.00s to 0.45s)
+  const rankP1 = phase1Order[i];
+  const whiteDelay = ((rankP1 / (TOTAL_TILES - 1)) * 0.45).toFixed(3);
+
+  // Phase 2: Reveal phase (0.65s to 1.10s)
+  const rankP2 = phase2Order[i];
+  const revealDelay = (0.65 + (rankP2 / (TOTAL_TILES - 1)) * 0.45).toFixed(3);
 
   return {
     key: `${row}-${col}`,
     backgroundPosition: `${col * step}% ${row * step}%`,
-    noiseDelay: `${noiseDelay}s`,
-    noiseX: `${noiseX}px`,
-    noiseY: `${noiseY}px`,
-    noiseScale,
+    whiteDelay: `${whiteDelay}s`,
+    revealDelay: `${revealDelay}s`,
   };
 });
 
@@ -42,7 +51,6 @@ export default function Hero() {
     const isMobile = window.innerWidth <= 768;
     const headerElement = document.querySelector('.site-header');
     
-    // Mobile applies header height offset to prevent over-scrolling; desktop remains flush (0)
     const headerOffset = isMobile ? (headerElement ? headerElement.offsetHeight + 12 : 70) : 0;
 
     const startPosition = window.scrollY || window.pageYOffset;
@@ -76,21 +84,14 @@ export default function Hero() {
       <div className="hero-content">
         <div
           className={`avatar${isRevealed ? ' is-revealed' : ''}`}
+          style={{ '--grid-size': GRID_SIZE }}
           role="img"
           aria-label="Patrick Carpio"
           onTouchStart={() => setIsRevealed(true)}
           onTouchEnd={() => setIsRevealed(false)}
         >
-          <div
-            className="full-avatar patyong-full"
-            style={{ backgroundImage: `url(${profilePhoto})` }}
-          />
-          <div
-            className="full-avatar gojo-full"
-            style={{ backgroundImage: `url(${gojoPhoto})` }}
-          />
-
-          <div className="tile-grid">
+          {/* BASE PHOTO GRID (PATYONG) */}
+          <div className="tile-grid patyong-grid">
             {TILES.map((tile) => (
               <div
                 key={`patyong-${tile.key}`}
@@ -98,17 +99,15 @@ export default function Hero() {
                 style={{
                   backgroundImage: `url(${profilePhoto})`,
                   backgroundPosition: tile.backgroundPosition,
-                  '--noise-delay-imm': tile.noiseDelay,
-                  '--noise-delay-del': `${(parseFloat(tile.noiseDelay) + TRANSITION_DELAY_OFFSET).toFixed(3)}s`,
-                  '--noise-x': tile.noiseX,
-                  '--noise-y': tile.noiseY,
-                  '--noise-scale': tile.noiseScale,
+                  '--white-delay': tile.whiteDelay,
+                  '--reveal-delay': tile.revealDelay,
                 }}
               />
             ))}
           </div>
 
-          <div className="tile-grid">
+          {/* INITIAL PHOTO GRID (GOJO) */}
+          <div className="tile-grid gojo-grid">
             {TILES.map((tile) => (
               <div
                 key={`gojo-${tile.key}`}
@@ -116,11 +115,8 @@ export default function Hero() {
                 style={{
                   backgroundImage: `url(${gojoPhoto})`,
                   backgroundPosition: tile.backgroundPosition,
-                  '--noise-delay-imm': tile.noiseDelay,
-                  '--noise-delay-del': `${(parseFloat(tile.noiseDelay) + TRANSITION_DELAY_OFFSET).toFixed(3)}s`,
-                  '--noise-x': tile.noiseX,
-                  '--noise-y': tile.noiseY,
-                  '--noise-scale': tile.noiseScale,
+                  '--white-delay': tile.whiteDelay,
+                  '--reveal-delay': tile.revealDelay,
                 }}
               />
             ))}
