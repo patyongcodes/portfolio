@@ -316,3 +316,27 @@
   transform: scale(0.15);
   pointer-events: none;
 }
+
+/* ===========================
+   MOBILE VIEW FIX
+   =========================== */
+@media (max-width: 640px) {
+  .hero-chat-wrapper {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .hero-chat-container.open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    transform-origin: center center;
+  }
+}
