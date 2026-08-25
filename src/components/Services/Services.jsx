@@ -3,18 +3,8 @@ import { services } from '../../data/services';
 import ServiceModal from './ServiceModal';
 import './Services.css';
 
-// Complementary dark colors for each service state
-const PANEL_COLORS = [
-  '#171212', // Deep Onyx / Charcoal
-  '#0f172a', // Midnight Slate Blue
-  '#0a1f18', // Dark Forest Emerald
-  '#1e112a', // Deep Obsidian Purple
-  '#1c130d', // Dark Espresso
-];
-
 export default function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState('next');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const total = services.length;
@@ -43,21 +33,17 @@ export default function Services() {
 
   const goTo = (index) => {
     if (index === activeIndex) return;
-    setDirection(index > activeIndex ? 'next' : 'prev');
     setActiveIndex(index);
   };
 
   const goPrev = () => {
-    setDirection('prev');
     setActiveIndex(prevIndex);
   };
 
   const goNext = () => {
-    setDirection('next');
     setActiveIndex(nextIndex);
   };
 
-  // Smooth scroll handler for the Contact Me button
   const handleContactClick = (e) => {
     e.preventDefault();
     const contactSection = document.getElementById('contact');
@@ -113,7 +99,7 @@ export default function Services() {
                 strokeLinejoin="round"
               >
                 <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
+                <polyline points="7" y7="17" x2="17" y2="7" />
               </svg>
             </button>
           </div>
@@ -130,41 +116,50 @@ export default function Services() {
             />
           ))}
         </div>
-      </div>
 
-      {/* RIGHT DARK PANEL WITH DYNAMIC BACKGROUND COLOR */}
-      <div
-        className="services-panel reveal-on-scroll"
-        style={{
-          transitionDelay: '0.35s',
-          backgroundColor: PANEL_COLORS[activeIndex % PANEL_COLORS.length],
-        }}
-      >
-        <div className="services-panel-top">
-          <div className="services-panel-icon" aria-hidden="true">
-            {'</>'}
+        {/* EDITORIAL PROGRESS PANEL */}
+        <div className="services-panel reveal-on-scroll" style={{ transitionDelay: '0.35s' }}>
+          {/* TOP SEGMENTED PROGRESS TRACK */}
+          <div className="panel-progress-bar">
+            {services.map((_, i) => (
+              <div
+                key={i}
+                className={`panel-progress-segment${i === activeIndex ? ' is-active' : ''}`}
+                onClick={() => goTo(i)}
+              />
+            ))}
           </div>
 
-          <div key={activeIndex} className={`services-panel-content dir-${direction}`}>
-            <h3 className="services-panel-title">{active.title}</h3>
-            <p className="services-panel-description">{active.description}</p>
+          {/* PANEL BODY CONTENT */}
+          <div key={activeIndex} className="panel-body">
+            <div className="panel-watermark">{active.number}</div>
+            <h3 className="panel-title">{active.title}</h3>
+            <p className="panel-description">{active.description}</p>
           </div>
-        </div>
 
-        <div className="services-panel-nav">
-          <button className="nav-btn nav-prev" onClick={goPrev}>
-            <span className="nav-btn-title">{services[prevIndex].title}</span>
-            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M38 12H2M12 22L2 12 12 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+          {/* PANEL FOOTER CONTROL */}
+          <div className="panel-footer">
+            <div className="panel-counter">
+              <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
+              <span className="counter-divider">/</span>
+              <span className="counter-total">{String(total).padStart(2, '0')}</span>
+            </div>
 
-          <button className="nav-btn nav-next" onClick={goNext}>
-            <span className="nav-btn-title">{services[nextIndex].title}</span>
-            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 12h36M28 2l10 10-10 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+            <div className="panel-nav-group">
+              <button className="panel-arrow-btn" onClick={goPrev} aria-label="Previous Service">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+              </button>
+              <button className="panel-arrow-btn" onClick={goNext} aria-label="Next Service">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

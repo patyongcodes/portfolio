@@ -1,4 +1,5 @@
 import './Contact.css';
+import resumePdf from '../../assets/resume.pdf';
 
 export default function Contact() {
   const emailAddress = "patrick.carpio1604@gmail.com";
@@ -55,11 +56,24 @@ export default function Contact() {
               <span className="btn-arrow">↗</span>
             </a>
 
-            {/* DOWNLOAD CV ACTION */}
+            {/* VIEW CV ACTION */}
             <a
-              href="/resume.pdf"
+              href={resumePdf}
               target="_blank"
               rel="noreferrer"
+              className="minimal-btn"
+            >
+              <div className="btn-content">
+                <span className="btn-label">Resume</span>
+                <span className="btn-value">View CV</span>
+              </div>
+              <span className="btn-arrow">↗</span>
+            </a>
+
+            {/* DOWNLOAD CV ACTION */}
+            <a
+              href={resumePdf}
+              download="Patrick_Carpio_CV.pdf"
               className="minimal-btn dark"
             >
               <div className="btn-content">
@@ -115,4 +129,4 @@ export default function Contact() {
       </div>
     </section>
   );
-} 
+}

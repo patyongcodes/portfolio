@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { projects as defaultProjects } from '../../data/projects';
 import ProjectModal from './ProjectModal';
 import TechMarquee from './TechMarquee';
+import Certifications from './Certifications';
 import './Projects.css';
 
 import logo1 from '../../assets/images/logo1.png';
@@ -200,7 +201,11 @@ export default function Projects() {
         </div>
       )}
 
+      {/* TECH STACK SECTION */}
       <TechMarquee />
+
+      {/* CERTIFICATIONS SECTION */}
+      <Certifications />
 
       {activeProject && (
         <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />

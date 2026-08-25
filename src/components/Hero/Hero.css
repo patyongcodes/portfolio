@@ -3,9 +3,9 @@
    =========================== */
 .hero {
   position: relative;
-  min-height: 87vh;
-  min-height: 87dvh;
-  padding: 84px 24px 54px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 40px 20.4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 900px;
+  max-width: 765px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -34,11 +34,11 @@
 /* AVATAR CONTAINER */
 .avatar {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 119px;
+  height: 119px;
   border-radius: 50%;
-  border: 3px solid var(--color-primary);
-  margin-bottom: 24px;
+  border: 2.55px solid var(--color-primary);
+  margin-bottom: 20.4px;
   overflow: hidden;
   cursor: pointer;
   background-color: #ffffff;
@@ -52,7 +52,6 @@
   display: grid;
   grid-template-columns: repeat(var(--grid-size, 16), 1fr);
   grid-template-rows: repeat(var(--grid-size, 16), 1fr);
-  /* 1:1 scale ensures complete, un-cropped image framing */
   transform: scale(1);
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -74,7 +73,6 @@
   background-size: calc(var(--grid-size, 16) * 100%) calc(var(--grid-size, 16) * 100%);
   background-repeat: no-repeat;
   will-change: opacity, transform;
-  /* Scales individual tile edges inward/outward to erase hairline gaps without zooming the image */
   transform: scale(1.08); 
   outline: 1px solid transparent;
   -webkit-backface-visibility: hidden;
@@ -124,7 +122,7 @@
 @keyframes heroEntrance {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translateY(17px) scale(0.98);
   }
   100% {
     opacity: 1;
@@ -134,13 +132,13 @@
 
 /* DESKTOP TYPOGRAPHY */
 .hero-greeting {
-  font-size: 18px;
+  font-size: 15.3px;
   color: var(--color-ink);
-  margin-bottom: 12px;
+  margin-bottom: 10.2px;
 }
 
 .hero-headline {
-  font-size: 56px;
+  font-size: 47.6px;
   font-weight: 800;
   line-height: 1.16;
   letter-spacing: -0.02em;
@@ -156,30 +154,30 @@
 }
 
 .hero-description {
-  margin-top: 24px;
-  font-size: 18px;
+  margin-top: 20.4px;
+  font-size: 15.3px;
   line-height: 1.60;
   color: var(--color-body);
-  max-width: 640px;
+  max-width: 544px;
 }
 
 /* REDESIGNED CTA BUTTON */
 .hero-cta {
-  margin-top: 36px;
+  margin-top: 30.6px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10.2px;
   background: #0f172a;
   color: #ffffff;
   font-weight: 600;
-  font-size: 15px;
-  padding: 10px 10px 10px 24px;
+  font-size: 12.75px;
+  padding: 8.5px 8.5px 8.5px 20.4px;
   border-radius: 999px;
   text-decoration: none;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 3.4px 13.6px rgba(15, 23, 42, 0.12), inset 0 0.85px 0 rgba(255, 255, 255, 0.15);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.3s ease;
@@ -214,12 +212,12 @@
 
 .hero-cta:hover {
   background: var(--color-primary, #4F46E5);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.32);
+  transform: translateY(-2.55px);
+  box-shadow: 0 8.5px 20.4px rgba(79, 70, 229, 0.32);
 }
 
 .hero-cta:active {
-  transform: translateY(-1px);
+  transform: translateY(-0.85px);
 }
 
 .hero-cta span {
@@ -232,8 +230,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 27.2px;
+  height: 27.2px;
   background: rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   position: relative;
@@ -243,7 +241,7 @@
 
 .hero-cta:hover .hero-cta-icon-wrapper {
   background: rgba(255, 255, 255, 0.22);
-  transform: translateY(2px);
+  transform: translateY(1.7px);
 }
 
 .hero-cta svg {
@@ -251,13 +249,13 @@
 }
 
 /* =========================================================
-   SCALED MOBILE VIEWPORT
+   MOBILE VIEWPORT (+10% INCREASED CONTENT SIZE)
    ========================================================= */
 @media (max-width: 768px) {
   .hero {
-    min-height: 87vh;
-    min-height: 87dvh;
-    padding: 30px 20px 42px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 32.2px 21.5px 45.1px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -265,28 +263,28 @@
   }
 
   .hero-content {
-    max-width: 380px;
+    max-width: 408.7px;
     margin: 0 auto;
   }
 
   .avatar {
-    width: 120px;
-    height: 120px;
+    width: 129px;
+    height: 129px;
     margin-top: 0;
-    margin-bottom: 28px;
-    border-width: 2px;
+    margin-bottom: 30.1px;
+    border-width: 2.15px;
   }
 
   .hero-greeting {
-    font-size: 18px;
+    font-size: 19.4px;
     font-weight: 600;
-    margin-bottom: 18px;
+    margin-bottom: 19.4px;
   }
 
   .hero-headline {
-    font-size: 32px;
+    font-size: 34.4px;
     line-height: 1.24;
-    margin-bottom: 24px;
+    margin-bottom: 25.9px;
   }
 
   .hero-headline .accent {
@@ -294,61 +292,61 @@
   }
 
   .hero-description {
-    font-size: 18px;
+    font-size: 19.4px;
     line-height: 1.50;
     margin-top: 0;
-    margin-bottom: 36px;
-    max-width: 360px;
+    margin-bottom: 38.7px;
+    max-width: 387px;
   }
 
   .hero-cta {
     margin-top: 0;
-    padding: 8px 8px 8px 20px;
-    font-size: 14px;
+    padding: 8.6px 8.6px 8.6px 21.5px;
+    font-size: 15.1px;
   }
 
   .hero-cta-icon-wrapper {
-    width: 28px;
-    height: 28px;
+    width: 30.1px;
+    height: 30.1px;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    min-height: 87vh;
-    min-height: 87dvh;
-    padding: 18px 16px 34px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 19.4px 17.2px 36.5px;
   }
 
   .hero-content {
-    max-width: 340px;
+    max-width: 365.6px;
   }
 
   .avatar {
-    width: 108px;
-    height: 108px;
-    margin-bottom: 22px;
+    width: 116.2px;
+    height: 116.2px;
+    margin-bottom: 23.7px;
   }
 
   .hero-greeting {
-    font-size: 16px;
-    margin-bottom: 14px;
+    font-size: 17.2px;
+    margin-bottom: 15.1px;
   }
 
   .hero-headline {
-    font-size: 28px;
+    font-size: 30.1px;
     line-height: 1.26;
-    margin-bottom: 20px;
+    margin-bottom: 21.5px;
   }
 
   .hero-description {
-    font-size: 16px;
+    font-size: 17.2px;
     line-height: 1.48;
-    margin-bottom: 30px;
+    margin-bottom: 32.2px;
   }
 
   .hero-cta {
-    padding: 7px 7px 7px 18px;
-    font-size: 13.5px;
+    padding: 7.5px 7.5px 7.5px 19.4px;
+    font-size: 14.5px;
   }
 }

@@ -1,6 +1,6 @@
 .about {
   background-color: #ffffff;
-  padding: 80px 24px;
+  padding: 64px 19.2px;
   box-sizing: border-box;
   color: #111827;
 }
@@ -10,7 +10,7 @@
    =========================== */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(38.4px);
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
               transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
@@ -28,11 +28,11 @@
 .interest-card:nth-child(4) { transition-delay: 0.32s; }
 
 .about-container {
-  max-width: 1100px;
+  max-width: 880px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 57.6px;
 }
 
 /* 1. HEADER & PROFILE IMAGE */
@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 48px;
+  gap: 38.4px;
 }
 
 .about-header-text {
@@ -48,27 +48,27 @@
 }
 
 .about-heading {
-  font-size: 42px;
+  font-size: 33.6px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin: 0 0 16px 0;
+  margin: 0 0 12.8px 0;
   line-height: 1.1;
 }
 
 .about-bio {
-  font-size: 18px;
+  font-size: 14.4px;
   line-height: 1.7;
   color: #4b5563;
   margin: 0;
 }
 
 .about-profile-frame {
-  width: 130px;
-  height: 130px;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .about-profile-img {
@@ -79,27 +79,27 @@
 
 /* SUBHEADINGS & DESCRIPTIONS */
 .about-subheading {
-  font-size: 28px;
+  font-size: 22.4px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  margin: 0 0 24px 0;
+  margin: 0 0 19.2px 0;
 }
 
 .about-block-desc {
-  font-size: 15px;
+  font-size: 12px;
   color: #6b7280;
-  margin: 0 0 28px 0;
+  margin: 0 0 22.4px 0;
 }
 
 /* 2. EDUCATION SECTION (PURE TEXT) */
 .education-list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 22.4px;
 }
 
 .education-item {
-  padding-bottom: 24px;
+  padding-bottom: 19.2px;
   border-bottom: 1px solid #f3f4f6;
 }
 
@@ -109,21 +109,21 @@
 }
 
 .education-degree {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 4px 0;
+  margin: 0 0 3.2px 0;
 }
 
 .education-school {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 600;
   color: #4b5563;
-  margin: 0 0 8px 0;
+  margin: 0 0 6.4px 0;
 }
 
 .education-details {
-  font-size: 15px;
+  font-size: 12px;
   line-height: 1.6;
   color: #6b7280;
   margin: 0;
@@ -133,14 +133,14 @@
 .interests-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12.8px;
 }
 
 .interest-card {
   background: #f9fafb;
   border: 1px solid #f3f4f6;
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 12.8px;
+  padding: 19.2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -155,21 +155,21 @@
 }
 
 .interest-tag {
-  font-size: 11px;
+  font-size: 8.8px;
   font-weight: 700;
   color: #6b7280;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6.4px;
 }
 
 .interest-title {
-  font-size: 16px;
+  font-size: 12.8px;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 6.4px 0;
 }
 
 .interest-desc {
-  font-size: 13.5px;
+  font-size: 10.8px;
   line-height: 1.5;
   color: #4b5563;
   margin: 0;
@@ -181,14 +181,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 0 10px;
+  padding: 16px 0 8px;
 }
 
 .gallery-deck-container {
   position: relative;
-  width: 280px;
+  width: 224px;
   aspect-ratio: 3 / 4;
-  perspective: 1000px;
+  perspective: 800px;
   user-select: none;
   touch-action: none;
 }
@@ -198,10 +198,10 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  border-radius: 24px;
+  border-radius: 19.2px;
   overflow: hidden;
   background: #e5e7eb;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 9.6px 22.4px rgba(0, 0, 0, 0.12);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease;
   will-change: transform, opacity;
 }
@@ -212,7 +212,7 @@
 
 .gallery-card.top-card.dragging {
   cursor: grabbing;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19.2px 38.4px rgba(0, 0, 0, 0.22);
 }
 
 .gallery-card img {
@@ -242,28 +242,28 @@
 
 .gallery-card[data-index="1"] {
   z-index: 9;
-  transform: translate(8px, 10px) rotate(3deg) scale(0.97);
+  transform: translate(6.4px, 8px) rotate(3deg) scale(0.97);
 }
 
 .gallery-card[data-index="2"] {
   z-index: 8;
-  transform: translate(-8px, 18px) rotate(-3deg) scale(0.94);
+  transform: translate(-6.4px, 14.4px) rotate(-3deg) scale(0.94);
 }
 
 .gallery-card[data-index="3"] {
   z-index: 7;
-  transform: translate(4px, 26px) rotate(1.5deg) scale(0.91);
+  transform: translate(3.2px, 20.8px) rotate(1.5deg) scale(0.91);
 }
 
 .gallery-card[data-index="4"] {
   z-index: 6;
-  transform: translate(-4px, 32px) rotate(-1.5deg) scale(0.88);
+  transform: translate(-3.2px, 25.6px) rotate(-1.5deg) scale(0.88);
   opacity: 0.7;
 }
 
 .gallery-card:nth-child(n+6) {
   z-index: 1;
-  transform: translate(0px, 36px) scale(0.85);
+  transform: translate(0px, 28.8px) scale(0.85);
   opacity: 0;
 }
 
@@ -276,35 +276,35 @@
 
 @media (max-width: 768px) {
   .about {
-    padding: 48px 16px;
+    padding: 38.4px 12.8px;
   }
 
   .about-container {
-    gap: 48px;
+    gap: 38.4px;
   }
 
   .about-header-container {
     flex-direction: column-reverse;
     align-items: center;
     text-align: center;
-    gap: 24px;
+    gap: 19.2px;
   }
 
   .about-profile-frame {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
   .about-heading {
-    font-size: 32px;
+    font-size: 25.6px;
   }
 
   .about-subheading {
-    font-size: 22px;
+    font-size: 17.6px;
   }
 
   .about-bio {
-    font-size: 16px;
+    font-size: 12.8px;
   }
 
   .interests-grid {
@@ -312,6 +312,6 @@
   }
 
   .gallery-deck-container {
-    width: 230px;
+    width: 184px;
   }
 }

@@ -1,16 +1,16 @@
 .contact {
   background-color: #ffffff;
-  padding: 100px 24px;
+  padding: 85px 20.4px;
   color: #111827;
   box-sizing: border-box;
 }
 
 .contact-wrapper {
-  max-width: 1100px;
+  max-width: 935px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
+  gap: 54.4px;
   align-items: start;
 }
 
@@ -25,12 +25,12 @@
 .availability-indicator {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 14px 6px 12px;
+  gap: 8.5px;
+  padding: 5.1px 11.9px 5.1px 10.2px;
   background-color: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 999px;
-  margin-bottom: 28px;
+  margin-bottom: 23.8px;
 }
 
 .indicator-dot-wrapper {
@@ -38,13 +38,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8px;
-  height: 8px;
+  width: 6.8px;
+  height: 6.8px;
 }
 
 .indicator-dot {
-  width: 8px;
-  height: 8px;
+  width: 6.8px;
+  height: 6.8px;
   background-color: #10b981;
   border-radius: 50%;
   position: relative;
@@ -73,7 +73,7 @@
 }
 
 .indicator-text {
-  font-size: 12px;
+  font-size: 10.2px;
   font-weight: 600;
   letter-spacing: 0.03em;
   color: #374151;
@@ -82,20 +82,20 @@
 
 .contact-title {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 52px;
+  font-size: 44.2px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: #111827;
-  margin: 0 0 20px 0;
+  margin: 0 0 17px 0;
 }
 
 .contact-subtitle {
-  font-size: 15px;
+  font-size: 12.75px;
   line-height: 1.75;
   color: #4b5563;
   margin: 0;
-  max-width: 480px;
+  max-width: 408px;
 }
 
 /* 2. RIGHT SIDE - MINIMAL ACTION LIST */
@@ -106,7 +106,7 @@
 .action-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10.2px;
 }
 
 /* MINIMAL ACTION BUTTON */
@@ -114,9 +114,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 15.3px 17px;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 8.5px;
   background-color: #ffffff;
   text-decoration: none;
   color: #111827;
@@ -126,17 +126,17 @@
 .minimal-btn:hover {
   border-color: #111827;
   background-color: #f9fafb;
-  transform: translateX(4px);
+  transform: translateX(3.4px);
 }
 
 .btn-content {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1.7px;
 }
 
 .btn-label {
-  font-size: 11px;
+  font-size: 9.35px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -144,13 +144,13 @@
 }
 
 .btn-value {
-  font-size: 14px;
+  font-size: 11.9px;
   font-weight: 600;
   color: #111827;
 }
 
 .btn-arrow {
-  font-size: 18px;
+  font-size: 15.3px;
   font-weight: 500;
   color: #9ca3af;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -158,7 +158,7 @@
 
 .minimal-btn:hover .btn-arrow {
   color: #111827;
-  transform: translate(2px, -2px);
+  transform: translate(1.7px, -1.7px);
 }
 
 /* DARK VARIATION FOR CV BUTTON */
@@ -186,7 +186,7 @@
 
 .minimal-btn.dark:hover .btn-arrow.light {
   color: #ffffff;
-  transform: translateY(2px);
+  transform: translateY(1.7px);
 }
 
 /* SOCIALS ROW */
@@ -194,14 +194,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 11.9px 17px;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 8.5px;
   background-color: #ffffff;
 }
 
 .social-label {
-  font-size: 11px;
+  font-size: 9.35px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -211,7 +211,7 @@
 .social-icons {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 13.6px;
 }
 
 .social-icon {
@@ -225,28 +225,28 @@
 
 .social-icon:hover {
   color: #111827;
-  transform: translateY(-2px);
+  transform: translateY(-1.7px);
 }
 
 /* EQUAL & LARGER SIZE FOR ALL ICONS */
 .social-icon svg {
-  width: 25px;
-  height: 25px;
+  width: 21.25px;
+  height: 21.25px;
   display: block;
 }
 
 /* RESPONSIVE LAYOUT */
 @media (max-width: 868px) {
   .contact {
-    padding: 60px 20px;
+    padding: 51px 17px;
   }
 
   .contact-wrapper {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 34px;
   }
 
   .contact-title {
-    font-size: 40px;
+    font-size: 34px;
   }
 }

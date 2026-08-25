@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import profilePhoto from '../../assets/images/patyong.png';
 import gojoPhoto from '../../assets/images/gojo.png';
+import HeroChat from '../HeroChat/HeroChat';
 import './Hero.css';
 
-// Increased from 8 to 16 for significantly smaller, high-density pixel tiles
 const GRID_SIZE = 16;
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
 
@@ -24,11 +24,9 @@ const TILES = Array.from({ length: TOTAL_TILES }, (_, i) => {
   const col = i % GRID_SIZE;
   const step = 100 / (GRID_SIZE - 1);
 
-  // Phase 1: White-out phase (0.00s to 0.45s)
   const rankP1 = phase1Order[i];
   const whiteDelay = ((rankP1 / (TOTAL_TILES - 1)) * 0.45).toFixed(3);
 
-  // Phase 2: Reveal phase (0.65s to 1.10s)
   const rankP2 = phase2Order[i];
   const revealDelay = (0.65 + (rankP2 / (TOTAL_TILES - 1)) * 0.45).toFixed(3);
 
@@ -136,10 +134,12 @@ export default function Hero() {
         </h1>
 
         <p className="hero-description">
-          I specialize in transforming ideas into digital reality, combining thoughtful
-          design with robust development to build high-performing websites &amp; mobile
-          applications.
+          Specializing in full-stack web development, mobile app creation, and intuitive UI/UX design, 
+          I build high-performing, scalable digital products engineered from concept to deployment.
         </p>
+
+        {/* AI CHATBOT WIDGET */}
+        <HeroChat />
 
         <a href="#projects" className="hero-cta" onClick={handleExploreClick}>
           <span>Explore Portfolio</span>
