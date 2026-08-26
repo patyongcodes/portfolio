@@ -194,7 +194,7 @@ export default function About() {
             <p className="about-bio">
               I'm a developer and designer passionate about crafting purposeful digital experiences. 
               I bridge the gap between complex backend logic and sleek user interfaces, focusing 
-              on building clean, maintainable, and high-performing web applications.
+              on building clean, maintainable, and high-performing websites and mobile applications.
             </p>
           </div>
 

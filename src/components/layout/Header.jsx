@@ -28,7 +28,18 @@ export default function Header() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+
+    // Fallback for browsers without View Transitions API support
+    if (!document.startViewTransition) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    // Trigger smooth fade transition
+    document.startViewTransition(() => {
+      setTheme(nextTheme);
+    });
   };
 
   useEffect(() => {
