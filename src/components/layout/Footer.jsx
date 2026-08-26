@@ -3,7 +3,9 @@ import './Footer.css';
 
 export default function Footer() {
   const [time, setTime] = useState('');
+  const [views, setViews] = useState(null);
 
+  // Live Philippines Clock
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -23,6 +25,36 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  // Live Visitor Counter (Visitor Badge API)
+  useEffect(() => {
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch(
+          'https://api.visitorbadge.io/api/visitors?path=codebypat-portfolio&countOnly=true'
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const rawData = await response.text();
+        const parsedCount = parseInt(rawData.replace(/,/g, ''), 10);
+
+        if (!isNaN(parsedCount)) {
+          setViews(parsedCount);
+        } else {
+          setViews(120); // Fallback count if response format is unexpected
+        }
+      } catch (error) {
+        console.warn('Visitor counter API offline, using fallback value.', error);
+        setViews(120); // Fallback count so UI badge remains visible
+      }
+    };
+
+    fetchVisitorCount();
+  }, []);
+
+  // Scroll Reveal Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -77,8 +109,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* COPYRIGHT COLUMN */}
+        {/* COPYRIGHT & VISITOR COUNTER COLUMN */}
         <div className="footer-col footer-col-right reveal-on-scroll">
+          <div className="footer-views-badge">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span>{views !== null ? `${views.toLocaleString()} Views` : 'Loading...'}</span>
+          </div>
+
           <span className="footer-copyright">
             &copy; {new Date().getFullYear()} codebypat <br />
             All Rights Reserved

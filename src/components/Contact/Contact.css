@@ -1,8 +1,9 @@
 .contact {
-  background-color: #ffffff;
+  background-color: var(--color-bg);
   padding: 85px 20.4px;
-  color: #111827;
+  color: var(--color-ink);
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .contact-wrapper {
@@ -27,10 +28,11 @@
   align-items: center;
   gap: 8.5px;
   padding: 5.1px 11.9px 5.1px 10.2px;
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   margin-bottom: 23.8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .indicator-dot-wrapper {
@@ -76,7 +78,7 @@
   font-size: 10.2px;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: #374151;
+  color: var(--color-body);
   text-transform: uppercase;
 }
 
@@ -86,14 +88,14 @@
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #111827;
+  color: var(--color-ink);
   margin: 0 0 17px 0;
 }
 
 .contact-subtitle {
   font-size: 12.75px;
   line-height: 1.75;
-  color: #4b5563;
+  color: var(--color-body);
   margin: 0;
   max-width: 408px;
 }
@@ -115,17 +117,17 @@
   align-items: center;
   justify-content: space-between;
   padding: 15.3px 17px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 8.5px;
-  background-color: #ffffff;
+  background-color: var(--color-card);
   text-decoration: none;
-  color: #111827;
+  color: var(--color-ink);
   transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .minimal-btn:hover {
-  border-color: #111827;
-  background-color: #f9fafb;
+  border-color: var(--color-ink);
+  background-color: var(--color-bg);
   transform: translateX(3.4px);
 }
 
@@ -140,52 +142,63 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #6b7280;
+  color: var(--color-subtle, #6b7280);
 }
 
 .btn-value {
   font-size: 11.9px;
   font-weight: 600;
-  color: #111827;
+  color: var(--color-ink);
 }
 
 .btn-arrow {
   font-size: 15.3px;
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--color-subtle, #9ca3af);
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .minimal-btn:hover .btn-arrow {
-  color: #111827;
+  color: var(--color-ink);
   transform: translate(1.7px, -1.7px);
 }
 
-/* DARK VARIATION FOR CV BUTTON */
+/* HIGH-CONTRAST INVERTED VARIATION FOR RESUME / CV BUTTON */
 .minimal-btn.dark {
-  background-color: #111827;
-  border-color: #111827;
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
 }
 
 .minimal-btn.dark:hover {
-  background-color: #1f2937;
-  border-color: #1f2937;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
+/* INVERTED TEXT TO MATCH DYNAMIC INK BACKGROUND */
 .btn-label.light {
-  color: #9ca3af;
+  color: var(--color-bg);
+  opacity: 0.75;
 }
 
 .btn-value.light {
-  color: #ffffff;
+  color: var(--color-bg);
 }
 
 .btn-arrow.light {
-  color: #9ca3af;
+  color: var(--color-bg);
+  opacity: 0.75;
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* HOVER STATES FOR RESUME BUTTON */
+.minimal-btn.dark:hover .btn-label.light,
+.minimal-btn.dark:hover .btn-value.light,
+.minimal-btn.dark:hover .btn-arrow.light {
+  color: #ffffff;
+  opacity: 1;
 }
 
 .minimal-btn.dark:hover .btn-arrow.light {
-  color: #ffffff;
   transform: translateY(1.7px);
 }
 
@@ -195,9 +208,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 11.9px 17px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 8.5px;
-  background-color: #ffffff;
+  background-color: var(--color-card);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .social-label {
@@ -205,7 +219,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #6b7280;
+  color: var(--color-subtle, #6b7280);
 }
 
 .social-icons {
@@ -215,7 +229,7 @@
 }
 
 .social-icon {
-  color: #4b5563;
+  color: var(--color-body);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +238,7 @@
 }
 
 .social-icon:hover {
-  color: #111827;
+  color: var(--color-ink);
   transform: translateY(-1.7px);
 }
 

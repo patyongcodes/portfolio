@@ -1,8 +1,9 @@
 .about {
-  background-color: #ffffff;
+  background-color: var(--color-bg);
   padding: 64px 19.2px;
   box-sizing: border-box;
-  color: #111827;
+  color: var(--color-ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ===========================
@@ -51,6 +52,7 @@
   font-size: 33.6px;
   font-weight: 800;
   letter-spacing: -0.02em;
+  color: var(--color-ink);
   margin: 0 0 12.8px 0;
   line-height: 1.1;
 }
@@ -58,7 +60,7 @@
 .about-bio {
   font-size: 14.4px;
   line-height: 1.7;
-  color: #4b5563;
+  color: var(--color-body);
   margin: 0;
 }
 
@@ -68,7 +70,8 @@
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--color-border);
 }
 
 .about-profile-img {
@@ -82,12 +85,13 @@
   font-size: 22.4px;
   font-weight: 800;
   letter-spacing: -0.01em;
+  color: var(--color-ink);
   margin: 0 0 19.2px 0;
 }
 
 .about-block-desc {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-subtle, #6b7280);
   margin: 0 0 22.4px 0;
 }
 
@@ -100,7 +104,7 @@
 
 .education-item {
   padding-bottom: 19.2px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .education-item:last-child {
@@ -111,21 +115,21 @@
 .education-degree {
   font-size: 16px;
   font-weight: 700;
-  color: #111827;
+  color: var(--color-ink);
   margin: 0 0 3.2px 0;
 }
 
 .education-school {
   font-size: 12px;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--color-body);
   margin: 0 0 6.4px 0;
 }
 
 .education-details {
   font-size: 12px;
   line-height: 1.6;
-  color: #6b7280;
+  color: var(--color-subtle, #6b7280);
   margin: 0;
 }
 
@@ -137,13 +141,14 @@
 }
 
 .interest-card {
-  background: #f9fafb;
-  border: 1px solid #f3f4f6;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: 12.8px;
   padding: 19.2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Smooth transition override after entrance */
@@ -157,7 +162,7 @@
 .interest-tag {
   font-size: 8.8px;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--color-subtle, #6b7280);
   text-transform: uppercase;
   margin-bottom: 6.4px;
 }
@@ -165,13 +170,14 @@
 .interest-title {
   font-size: 12.8px;
   font-weight: 700;
+  color: var(--color-ink);
   margin: 0 0 6.4px 0;
 }
 
 .interest-desc {
   font-size: 10.8px;
   line-height: 1.5;
-  color: #4b5563;
+  color: var(--color-body);
   margin: 0;
 }
 
@@ -200,8 +206,8 @@
   height: 100%;
   border-radius: 19.2px;
   overflow: hidden;
-  background: #e5e7eb;
-  box-shadow: 0 9.6px 22.4px rgba(0, 0, 0, 0.12);
+  background: var(--color-border);
+  box-shadow: 0 9.6px 22.4px rgba(0, 0, 0, 0.25);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease;
   will-change: transform, opacity;
 }
@@ -212,7 +218,7 @@
 
 .gallery-card.top-card.dragging {
   cursor: grabbing;
-  box-shadow: 0 19.2px 38.4px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19.2px 38.4px rgba(0, 0, 0, 0.35);
 }
 
 .gallery-card img {

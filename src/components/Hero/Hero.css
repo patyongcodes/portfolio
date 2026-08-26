@@ -17,7 +17,8 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-color: #ffffff;
+  background-color: var(--color-bg);
+  transition: background-color 0.3s ease;
 }
 
 .hero-content {
@@ -41,8 +42,9 @@
   margin-bottom: 20.4px;
   overflow: hidden;
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: var(--color-bg);
   flex-shrink: 0;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 /* TILE GRIDS */
@@ -135,6 +137,7 @@
   font-size: 15.3px;
   color: var(--color-ink);
   margin-bottom: 10.2px;
+  transition: color 0.3s ease;
 }
 
 .hero-headline {
@@ -146,11 +149,13 @@
 
 .hero-headline .ink {
   color: var(--color-ink);
+  transition: color 0.3s ease;
 }
 
 .hero-headline .accent {
   color: var(--color-primary);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .hero-description {
@@ -159,6 +164,7 @@
   line-height: 1.60;
   color: var(--color-body);
   max-width: 544px;
+  transition: color 0.3s ease;
 }
 
 /* REDESIGNED CTA BUTTON */
@@ -167,8 +173,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10.2px;
-  background: #0f172a;
-  color: #ffffff;
+  background: var(--color-ink);
+  color: var(--color-bg);
   font-weight: 600;
   font-size: 12.75px;
   padding: 8.5px 8.5px 8.5px 20.4px;
@@ -177,10 +183,11 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 3.4px 13.6px rgba(15, 23, 42, 0.12), inset 0 0.85px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 3.4px 13.6px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease;
+              background-color 0.3s ease,
+              color 0.3s ease;
 }
 
 .hero-cta::before {
@@ -211,7 +218,8 @@
 }
 
 .hero-cta:hover {
-  background: var(--color-primary, #4F46E5);
+  background: var(--color-primary);
+  color: #ffffff;
   transform: translateY(-2.55px);
   box-shadow: 0 8.5px 20.4px rgba(79, 70, 229, 0.32);
 }
@@ -232,7 +240,7 @@
   justify-content: center;
   width: 27.2px;
   height: 27.2px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   position: relative;
   z-index: 2;
@@ -240,7 +248,7 @@
 }
 
 .hero-cta:hover .hero-cta-icon-wrapper {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.25);
   transform: translateY(1.7px);
 }
 
@@ -249,7 +257,7 @@
 }
 
 /* =========================================================
-   MOBILE VIEWPORT (+10% INCREASED CONTENT SIZE)
+   MOBILE VIEWPORT
    ========================================================= */
 @media (max-width: 768px) {
   .hero {
@@ -287,10 +295,6 @@
     margin-bottom: 25.9px;
   }
 
-  .hero-headline .accent {
-    text-decoration: none;
-  }
-
   .hero-description {
     font-size: 19.4px;
     line-height: 1.50;
@@ -313,8 +317,6 @@
 
 @media (max-width: 480px) {
   .hero {
-    min-height: 100vh;
-    min-height: 100dvh;
     padding: 19.4px 17.2px 36.5px;
   }
 

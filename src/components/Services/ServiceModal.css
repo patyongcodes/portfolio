@@ -2,27 +2,32 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 20px;
+  overflow-y: auto; /* Allows scrolling when viewport shrinks */
+  -webkit-overflow-scrolling: touch;
   animation: modal-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Modal Card */
 .modal-card {
   position: relative;
-  background: #ffffff;
+  background: var(--color-card);
   width: 100%;
   max-width: 440px;
+  max-height: calc(100dvh - 40px); /* Fits dynamically within mobile height */
+  overflow-y: auto; /* Enables internal scrolling for text inputs */
   border-radius: 20px;
   padding: 32px 28px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
   animation: modal-scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Close Icon Button */
@@ -30,23 +35,23 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   width: 32px;
   height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #64748b;
+  color: var(--color-body);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .modal-close-btn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-  border-color: #cbd5e1;
+  background: var(--color-border);
+  color: var(--color-ink);
+  border-color: var(--color-primary);
 }
 
 /* Header */
@@ -61,8 +66,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #4f46e5;
-  background: #e0e7ff;
+  color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.12);
   padding: 4px 10px;
   border-radius: 6px;
   margin-bottom: 10px;
@@ -71,14 +76,14 @@
 .modal-service-title {
   font-size: 22px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-ink);
   margin: 0 0 6px 0;
   letter-spacing: -0.01em;
 }
 
 .modal-subtitle {
   font-size: 13.5px;
-  color: #64748b;
+  color: var(--color-body);
   margin: 0;
   line-height: 1.45;
 }
@@ -99,7 +104,7 @@
 .form-group label {
   font-size: 13px;
   font-weight: 600;
-  color: #334155;
+  color: var(--color-ink);
 }
 
 .required-star {
@@ -110,11 +115,11 @@
 .form-group textarea {
   width: 100%;
   padding: 11px 14px;
-  background: #f8fafc;
-  border: 1.5px solid #e2e8f0;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
   border-radius: 10px;
-  font-size: 14px;
-  color: #0f172a;
+  font-size: 16px; /* Prevents auto-zoom on iOS safari */
+  color: var(--color-ink);
   font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
@@ -123,14 +128,15 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #94a3b8;
+  color: var(--color-body);
+  opacity: 0.7;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  background: #ffffff;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  background: var(--color-card);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 .form-group textarea {
@@ -141,7 +147,7 @@
 /* Submit Button */
 .modal-submit-btn {
   width: 100%;
-  background: #4f46e5;
+  background: var(--color-primary);
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -157,7 +163,7 @@
 }
 
 .modal-submit-btn:hover:not(:disabled) {
-  background: #4338ca;
+  background: var(--color-primary-hover, #4338ca);
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
@@ -198,29 +204,56 @@
 .success-icon-wrapper {
   width: 56px;
   height: 56px;
-  background: #f0fdf4;
+  background: rgba(22, 163, 74, 0.12);
   color: #16a34a;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  border: 1px solid #dcfce7;
+  border: 1px solid rgba(22, 163, 74, 0.25);
 }
 
 .success-title {
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-ink);
   margin: 0 0 8px 0;
 }
 
 .success-desc {
   font-size: 14px;
-  color: #64748b;
+  color: var(--color-body);
   line-height: 1.5;
   margin: 0 0 24px 0;
   max-width: 320px;
+}
+
+/* Key Improvements for Mobile Keyboard Visibility */
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 12px;
+    align-items: flex-start; /* Keeps inputs positioned toward top when keyboard opens */
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+
+  .modal-card {
+    padding: 22px 18px;
+    max-height: calc(100dvh - 24px);
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    margin-bottom: 14px;
+  }
+
+  .modal-form {
+    gap: 12px;
+  }
+
+  .form-group textarea {
+    min-height: 60px;
+  }
 }
 
 /* Modal Animations */
