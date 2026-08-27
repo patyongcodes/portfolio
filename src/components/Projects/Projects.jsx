@@ -29,7 +29,7 @@ const PROJECT_LIST = [
   },
   {
     id: 'smartfit',
-    title: 'SmartFit',
+    title: 'SmartFit Thesis',
     role: 'Lead Developer',
     status: 'Ongoing',
     description:
