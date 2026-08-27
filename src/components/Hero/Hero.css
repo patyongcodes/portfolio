@@ -290,13 +290,13 @@
   }
 
   .hero-headline {
-    font-size: 34.4px;
+    font-size: 39.56px; /* +15% from 34.4px */
     line-height: 1.24;
     margin-bottom: 25.9px;
   }
 
   .hero-description {
-    font-size: 19.4px;
+    font-size: 17.46px; /* -10% from 19.4px */
     line-height: 1.50;
     margin-top: 0;
     margin-bottom: 38.7px;
@@ -336,13 +336,13 @@
   }
 
   .hero-headline {
-    font-size: 30.1px;
+    font-size: 34.62px; /* +15% from 30.1px */
     line-height: 1.26;
     margin-bottom: 21.5px;
   }
 
   .hero-description {
-    font-size: 17.2px;
+    font-size: 15.48px; /* -10% from 17.2px */
     line-height: 1.48;
     margin-bottom: 32.2px;
   }
