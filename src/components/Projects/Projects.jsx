@@ -51,11 +51,11 @@ const PROJECT_LIST = [
   },
   {
     id: 'wisespend',
-    title: 'AI Automation',
-    role: 'AI/ML Engineer',
+    title: 'SAGIP-KAPITAL AI',
+    role: 'Lead Developer',
     status: 'Ongoing',
     description:
-      'No description yet.',
+      'Systematic Amortization Gateway and Intelligent Prediction for Cooperative Capital Safeguarding.',
     logo: logo4,
     techStackImg: techstacks4,
     isComingSoon: true,
