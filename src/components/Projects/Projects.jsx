@@ -64,7 +64,20 @@ const PROJECT_LIST = [
 
 export default function Projects() {
   const [activeProject, setActiveProject] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isAllProjectsOpen, setIsAllProjectsOpen] = useState(false);
+
+  // Lock background scrolling when any modal is open
+  useEffect(() => {
+    if (isAllProjectsOpen || activeProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isAllProjectsOpen, activeProject]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -83,7 +96,7 @@ export default function Projects() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [isExpanded]);
+  }, []);
 
   return (
     <section className="projects" id="projects">
@@ -97,109 +110,101 @@ export default function Projects() {
       </div>
 
       <div className="projects-grid">
-        {PROJECT_LIST.map((project, index) => {
-          const isHiddenOnMobile = index >= 3 && !isExpanded;
+        {PROJECT_LIST.map((project, index) => (
+          <article
+            key={project.id}
+            className={`project-card reveal-on-scroll ${index >= 3 ? 'mobile-hidden' : ''}`}
+          >
+            {/* THUMBNAIL BOX */}
+            <div className="card-thumbnail-box">
+              <span className={`status-badge status-${project.status.toLowerCase()}`}>
+                {project.status}
+              </span>
 
-          return (
-            <article
-              key={project.id}
-              className={`project-card reveal-on-scroll ${
-                isHiddenOnMobile ? 'mobile-hidden' : ''
-              }`}
-            >
-              {/* THUMBNAIL BOX */}
-              <div className="card-thumbnail-box">
-                <span className={`status-badge status-${project.status.toLowerCase()}`}>
-                  {project.status}
-                </span>
-
-                {project.isComingSoon ? (
-                  <div className="coming-soon-placeholder">
-                    <span>COMING SOON</span>
-                  </div>
-                ) : (
-                  <img
-                    src={project.logo}
-                    alt={`${project.title} Preview`}
-                    className="card-thumbnail-img"
-                  />
-                )}
-              </div>
-
-              {/* TITLE & ROLE ROW */}
-              <div className="card-header-row">
-                <h3 className="card-title">{project.title}</h3>
-                <span className="card-role">{project.role}</span>
-              </div>
-
-              {/* DESCRIPTION */}
-              <p className="card-description">{project.description}</p>
-
-              {/* TECH STACK PNG */}
-              <div className="card-techstacks-container">
+              {project.isComingSoon ? (
+                <div className="coming-soon-placeholder">
+                  <span>COMING SOON</span>
+                </div>
+              ) : (
                 <img
-                  src={project.techStackImg}
-                  alt={`${project.title} Tech Stack`}
-                  className="techstacks-img"
+                  src={project.logo}
+                  alt={`${project.title} Preview`}
+                  className="card-thumbnail-img"
                 />
-              </div>
+              )}
+            </div>
 
-              {/* FOOTER */}
-              <div className="card-footer">
-                <hr className="card-divider" />
-                <button
-                  className="card-cta"
-                  onClick={() => setActiveProject(project)}
+            {/* TITLE & ROLE ROW */}
+            <div className="card-header-row">
+              <h3 className="card-title">{project.title}</h3>
+              <span className="card-role">{project.role}</span>
+            </div>
+
+            {/* DESCRIPTION */}
+            <p className="card-description">{project.description}</p>
+
+            {/* TECH STACK PNG */}
+            <div className="card-techstacks-container">
+              <img
+                src={project.techStackImg}
+                alt={`${project.title} Tech Stack`}
+                className="techstacks-img"
+              />
+            </div>
+
+            {/* FOOTER */}
+            <div className="card-footer">
+              <hr className="card-divider" />
+              <button
+                className="card-cta"
+                onClick={() => setActiveProject(project)}
+              >
+                <span>View Project</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <span>View Project</span>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 12h14M12 5l7 7-7 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </article>
-          );
-        })}
+                  <path
+                    d="M5 12h14M12 5l7 7-7 7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </article>
+        ))}
       </div>
 
-      {/* MOBILE VIEW MORE BUTTON */}
-      {!isExpanded && (
-        <div className="view-more-container">
-          <button
-            className="view-more-btn"
-            onClick={() => setIsExpanded(true)}
+      {/* VIEW ALL PROJECTS BUTTON */}
+      <div className="view-all-projects-container reveal-on-scroll">
+        <button
+          className="view-all-projects-btn"
+          onClick={() => setIsAllProjectsOpen(true)}
+        >
+          <span>View All Projects</span>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <span>View More Projects</span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6 9l6 6 6-6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-      )}
+            <path
+              d="M5 12h14M12 5l7 7-7 7"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
 
       {/* TECH STACK SECTION */}
       <TechMarquee />
@@ -207,8 +212,70 @@ export default function Projects() {
       {/* CERTIFICATIONS SECTION */}
       <Certifications />
 
+      {/* SINGLE PROJECT DETAIL MODAL */}
       {activeProject && (
         <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
+      )}
+
+      {/* ALL PROJECTS LIST MODAL */}
+      {isAllProjectsOpen && (
+        <div className="all-projects-modal-overlay" onClick={() => setIsAllProjectsOpen(false)}>
+          <div className="all-projects-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="all-projects-modal-header">
+              <div className="all-projects-header-title-group">
+                <h3>All Projects</h3>
+                <span className="projects-count-badge">{PROJECT_LIST.length}</span>
+              </div>
+              <button
+                className="all-projects-close-btn"
+                onClick={() => setIsAllProjectsOpen(false)}
+                aria-label="Close modal"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="all-projects-modal-body">
+              {PROJECT_LIST.map((project) => (
+                <div key={project.id} className="all-projects-card-item">
+                  <div className="all-projects-card-main">
+                    <div className="all-projects-title-row">
+                      <h4 className="all-projects-item-title">{project.title}</h4>
+                      <span className={`status-pill status-${project.status.toLowerCase()}`}>
+                        {project.status}
+                      </span>
+                    </div>
+
+                    <span className="all-projects-item-role">{project.role}</span>
+                    <p className="all-projects-item-desc">{project.description}</p>
+
+                    <div className="all-projects-item-tech">
+                      <img
+                        src={project.techStackImg}
+                        alt={`${project.title} Tech Stack`}
+                        className="techstacks-img-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="all-projects-action-col">
+                    <button
+                      className="all-projects-view-btn"
+                      onClick={() => setActiveProject(project)}
+                    >
+                      <span>View Project</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );

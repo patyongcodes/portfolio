@@ -56,7 +56,7 @@ export default function Contact() {
               <span className="btn-arrow">↗</span>
             </a>
 
-            {/* VIEW CV ACTION */}
+            {/* VIEW RESUME ACTION */}
             <a
               href={resumePdf}
               target="_blank"
@@ -65,20 +65,20 @@ export default function Contact() {
             >
               <div className="btn-content">
                 <span className="btn-label">Resume</span>
-                <span className="btn-value">View CV</span>
+                <span className="btn-value">View Resume</span>
               </div>
               <span className="btn-arrow">↗</span>
             </a>
 
-            {/* DOWNLOAD CV ACTION */}
+            {/* DOWNLOAD RESUME ACTION */}
             <a
               href={resumePdf}
-              download="Patrick_Carpio_CV.pdf"
+              download="Patrick_Carpio_Resume.pdf"
               className="minimal-btn dark"
             >
               <div className="btn-content">
                 <span className="btn-label light">Resume</span>
-                <span className="btn-value light">Download CV</span>
+                <span className="btn-value light">Download Resume</span>
               </div>
               <span className="btn-arrow light">↓</span>
             </a>
