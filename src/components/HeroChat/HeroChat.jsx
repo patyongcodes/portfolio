@@ -65,11 +65,21 @@ export default function HeroChat() {
     <div className="hero-chat-wrapper">
       {/* Morphing Floating Chat Window */}
       <div className={`hero-chat-container ${isOpen ? 'open' : ''}`}>
-        {/* Header */}
+        {/* Improved Chat Header */}
         <div className="chat-header">
-          <span className="chat-title">Chat Assistant</span>
+          <div className="chat-header-info">
+            <div className="chat-avatar-wrapper">
+              <span className="chat-header-avatar">P</span>
+              <span className="chat-status-dot" aria-hidden="true" />
+            </div>
+            <div className="chat-header-text">
+              <span className="chat-title">Patrick AI</span>
+              <span className="chat-subtitle">Online • Ask me anything</span>
+            </div>
+          </div>
+          
           <button className="chat-close-btn" onClick={toggleChat} aria-label="Close chat">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>

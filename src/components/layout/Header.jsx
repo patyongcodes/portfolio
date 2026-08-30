@@ -36,7 +36,7 @@ export default function Header() {
       return;
     }
 
-    // Trigger smooth fade transition
+    // Trigger smooth transition
     document.startViewTransition(() => {
       setTheme(nextTheme);
     });
@@ -123,31 +123,33 @@ export default function Header() {
       </nav>
 
       <div className="header-actions">
-        {/* Dark Mode Toggle Button */}
+        {/* Animated Dark/Light Theme Toggle Button */}
         <button 
-          className="theme-toggle" 
+          className={`theme-toggle ${theme === 'dark' ? 'is-dark' : ''}`}
           onClick={toggleTheme} 
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
-          {theme === 'light' ? (
-            /* Moon Icon */
+          {/* Moon Icon */}
+          <span className="theme-icon icon-moon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
-          ) : (
-            /* Sun Icon */
+          </span>
+
+          {/* Sun Icon */}
+          <span className="theme-icon icon-sun">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
             </svg>
-          )}
+          </span>
         </button>
 
         <div className="socials">
@@ -157,7 +159,7 @@ export default function Header() {
           <a href="https://www.instagram.com/pty.ng?igsi=b3c0MzNuZHh6cG5l" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
             <img src={instagramIcon} alt="Instagram" />
           </a>
-          <a href="https://www.linkedin.com/in/patrick-carpio-b71227430" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
+          <a href="https://www.linkedin.com/in/patrick.carpio" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
             <img src={linkedinIcon} alt="LinkedIn" />
           </a>
         </div>

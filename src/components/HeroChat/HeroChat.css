@@ -53,40 +53,96 @@
   transition: opacity 0.25s ease 0.1s;
 }
 
-/* Header */
+/* ===========================
+   ENHANCED CHAT HEADER
+   =========================== */
 .chat-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
+  padding: 10px 14px;
   background: var(--color-primary);
   color: #ffffff;
-  min-height: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  user-select: none;
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-avatar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-header-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.chat-status-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+}
+
+.chat-header-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-title {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #ffffff;
-  letter-spacing: 0.2px;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+}
+
+.chat-subtitle {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-top: 1px;
 }
 
 .chat-close-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
-  padding: 2px;
-  border-radius: 4px;
+  padding: 5px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .chat-close-btn:hover {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
 /* Messages */
@@ -321,4 +377,30 @@
   .hero-chat-wrapper {
     display: none !important;
   }
+}
+
+.chat-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Forces left alignment for title and subtitle */
+  text-align: left;
+}
+
+.chat-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  margin: 0;
+  text-align: left;
+}
+
+.chat-subtitle {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-top: 2px;
+  text-align: left;
 }

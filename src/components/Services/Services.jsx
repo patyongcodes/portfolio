@@ -7,10 +7,7 @@ export default function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const total = services.length;
   const active = services[activeIndex];
-  const prevIndex = (activeIndex - 1 + total) % total;
-  const nextIndex = (activeIndex + 1) % total;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,19 +27,6 @@ export default function Services() {
 
     return () => observer.disconnect();
   }, []);
-
-  const goTo = (index) => {
-    if (index === activeIndex) return;
-    setActiveIndex(index);
-  };
-
-  const goPrev = () => {
-    setActiveIndex(prevIndex);
-  };
-
-  const goNext = () => {
-    setActiveIndex(nextIndex);
-  };
 
   const handleContactClick = (e) => {
     e.preventDefault();
@@ -78,7 +62,19 @@ export default function Services() {
           {/* ACTION BUTTONS GROUP */}
           <div className="services-actions">
             <a href="#contact" className="services-hire-btn" onClick={handleContactClick}>
-              Contact me
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <span>Contact me</span>
             </a>
 
             <button
@@ -89,77 +85,32 @@ export default function Services() {
             >
               <span>Request Quote</span>
               <svg
-                width="16"
-                height="16"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
                 <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7" y7="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* CENTER: SERVICE BUTTONS */}
+        {/* RIGHT: SERVICE BUTTONS GRID */}
         <div className="services-list reveal-on-scroll" style={{ transitionDelay: '0.2s' }}>
           {services.map((service, i) => (
             <ServiceListItem
               key={service.number}
               service={service}
               isActive={i === activeIndex}
-              onClick={() => goTo(i)}
+              onClick={() => setActiveIndex(i)}
             />
           ))}
-        </div>
-
-        {/* EDITORIAL PROGRESS PANEL */}
-        <div className="services-panel reveal-on-scroll" style={{ transitionDelay: '0.35s' }}>
-          {/* TOP SEGMENTED PROGRESS TRACK */}
-          <div className="panel-progress-bar">
-            {services.map((_, i) => (
-              <div
-                key={i}
-                className={`panel-progress-segment${i === activeIndex ? ' is-active' : ''}`}
-                onClick={() => goTo(i)}
-              />
-            ))}
-          </div>
-
-          {/* PANEL BODY CONTENT */}
-          <div key={activeIndex} className="panel-body">
-            <div className="panel-watermark">{active.number}</div>
-            <h3 className="panel-title">{active.title}</h3>
-            <p className="panel-description">{active.description}</p>
-          </div>
-
-          {/* PANEL FOOTER CONTROL */}
-          <div className="panel-footer">
-            <div className="panel-counter">
-              <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
-              <span className="counter-divider">/</span>
-              <span className="counter-total">{String(total).padStart(2, '0')}</span>
-            </div>
-
-            <div className="panel-nav-group">
-              <button className="panel-arrow-btn" onClick={goPrev} aria-label="Previous Service">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="19" y1="12" x2="5" y2="12" />
-                  <polyline points="12 19 5 12 12 5" />
-                </svg>
-              </button>
-              <button className="panel-arrow-btn" onClick={goNext} aria-label="Next Service">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
