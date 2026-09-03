@@ -32,7 +32,7 @@ export default function About() {
       details: "Specialized in Software Engineering and Artificial Intelligent Systems.",
     },    
     {
-      degree: "Senior High School",
+      degree: "Science Technology Engineering & Mathematics",
       institution: "Laiya Integrated National High School",
       details: "Graduated with High Honors, and became the stepping stone of my tech journey.",
     },

@@ -22,10 +22,12 @@ const PROJECT_LIST = [
     role: 'Full Stack Developer',
     status: 'Deployed',
     description:
-      'Built end-to-end with Flutter, on-device ML, and AI integration, Notiq is an Android study companion app that transforms photos of notes and documents into AI-generated study guides, flashcards, quizzes, and smart exam reminders.',
+      'An Android study companion app built with Flutter and AI that transforms photos of notes into study guides, flashcards, and quizzes.',
     logo: logo1,
     techStackImg: techstacks1,
     isComingSoon: false,
+    githubUrl: 'https://github.com',
+    liveUrl: 'https://demo.com',
   },
   {
     id: 'smartfit',
@@ -33,21 +35,10 @@ const PROJECT_LIST = [
     role: 'Lead Developer',
     status: 'Ongoing',
     description:
-      'SmartFit is a dual-node wearable IoT system that uses IMU and heart rate sensors to give real-time feedback on exercise form, posture, and exertion, helping users train safely without a supervisor.',
+      'A wearable IoT system using dual ESP32 sensors and Flutter for real-time exercise posture evaluation and AI virtual coaching.',
     logo: logo2,
     techStackImg: techstacks2,
-    isComingSoon: true,
-  },
-  {
-    id: 'localfragsph',
-    title: 'LocalFragsPH Website',
-    role: 'Full Stack Developer',
-    status: 'Ongoing',
-    description:
-      'Website Supporting Local Perfume Brands and for the Pilipino Fragheads community.',
-    logo: logo3,
-    techStackImg: techstacks3,
-    isComingSoon: true,
+    isComingSoon: false,
   },
   {
     id: 'wisespend',
@@ -55,10 +46,21 @@ const PROJECT_LIST = [
     role: 'Lead Developer',
     status: 'Ongoing',
     description:
-      'Systematic Amortization Gateway and Intelligent Prediction for Cooperative Capital Safeguarding.',
+      'An AI-powered capital safeguarding platform that predicts member payment behavior, automates reminders, and optimizes loan recovery.',
+    logo: logo3,
+    techStackImg: techstacks3,
+    isComingSoon: false,
+  },
+  {
+    id: 'inventory-app',
+    title: 'Inventory Management Web App',
+    role: 'Full Stack Developer',
+    status: 'Ongoing',
+    description:
+      'A lightweight, multi-tenant web application for small businesses featuring station-scoped stock counts, low-stock alerts, and e-signatures.',
     logo: logo4,
     techStackImg: techstacks4,
-    isComingSoon: true,
+    isComingSoon: false,
   },
 ];
 
