@@ -22,30 +22,61 @@ export default function ProjectModal({ project, onClose }) {
       return (
         <div className="modal-readme-body">
           <p className="readme-intro">
-            Notiq is an Android study companion app built with Flutter, on-device ML, and AI integration. It transforms photos of notes and documents into AI-generated study guides, interactive flashcards, quizzes, and smart exam reminders.
+            Notiq is a mobile study companion for students. Snap a photo of your notes, or import a PDF/Word document, and Notiq turns it into AI-generated study material: a condensed exam reviewer, flashcards, and a quiz, while tracking your upcoming exams and sending smart reminders as deadlines approach. Built as a hands-on project to practice mobile development, on-device machine learning, and AI integration end-to-end, from a blank Flutter project to a working, polished Android app.
           </p>
 
           <hr className="readme-divider" />
 
-          {/* PROBLEM STATEMENT */}
+          {/* FEATURES */}
           <section className="readme-section">
-            <h3 className="readme-heading">Problem Statement</h3>
-            <p className="readme-intro">
-              Students spend significant time manually converting handwritten notes and textbook pages into study materials like flashcards and revision summaries. Notiq automates this workflow using OCR and generative AI, allowing students to focus on active recall and retention.
-            </p>
-          </section>
+            <h3 className="readme-heading">Features</h3>
 
-          <hr className="readme-divider" />
+            <div className="readme-subsection">
+              <h4>Scan & Import</h4>
+              <ul>
+                <li><strong>Camera Scan:</strong> On-device OCR via Google ML Kit working fully offline.</li>
+                <li><strong>Gallery Import:</strong> Select note images directly from device gallery.</li>
+                <li><strong>Document Processing:</strong> PDF and Word document import extracting real embedded text, which is more accurate than OCR when available.</li>
+                <li><strong>Text Cleanup:</strong> Automatic cleanup converting choppy PDF text extraction into readable paragraphs.</li>
+              </ul>
+            </div>
 
-          {/* KEY FEATURES */}
-          <section className="readme-section">
-            <h3 className="readme-heading">Key Features</h3>
-            <ul>
-              <li><strong>Document Scanning & OCR:</strong> Capture handwritten or printed notes with camera/gallery and extract high-accuracy text on-device.</li>
-              <li><strong>AI Study Guides & Quizzes:</strong> Automatically generate structured summaries, flashcards, and multiple-choice quizzes from scanned text.</li>
-              <li><strong>Smart Exam Reminders:</strong> Schedule intelligent review notifications based on upcoming exam dates and spaced-repetition scheduling.</li>
-              <li><strong>Offline-First Capabilities:</strong> Save generated flashcards and review offline with local database syncing.</li>
-            </ul>
+            <div className="readme-subsection">
+              <h4>AI-Generated Study Material</h4>
+              <ul>
+                <li><strong>Reviewer:</strong> A structured, comprehensive cram sheet with section headers and bolded key terms.</li>
+                <li><strong>Flashcards:</strong> Definition-first cards built for active recall, where the front shows a description and the back reveals the term.</li>
+                <li><strong>Quiz:</strong> Auto-generated 5-question multiple choice quiz with instant feedback and a scored results screen.</li>
+                <li><strong>Auto-Trimming:</strong> Long documents are automatically trimmed to stay within free-tier AI request limits.</li>
+              </ul>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>Schedule & Exam Tracking</h4>
+              <ul>
+                <li><strong>Exam Management:</strong> Add exams with subject, date, time, and optional topics.</li>
+                <li><strong>Scoring:</strong> Mark exams done with an optional score, unlockable starting 1 hour after the scheduled time.</li>
+                <li><strong>Cancellation & History:</strong> Cancel exams while retaining them in history with a "Cancelled" status that can be restored.</li>
+                <li><strong>Smart Reminders:</strong> Tiered local notification reminders sent 2 days, 24 hours, 12 hours, and 6 hours before an exam.</li>
+              </ul>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>Library & Home Dashboard</h4>
+              <ul>
+                <li><strong>Note Management:</strong> Browse and manage all scanned notes in a single repository.</li>
+                <li><strong>Dashboard:</strong> Home view showing upcoming exams, recent notes, and an animated score-accuracy chart tracking performance over time.</li>
+              </ul>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>Design & UX</h4>
+              <ul>
+                <li><strong>Branding & Theme:</strong> Custom branding with dark mode support throughout the application.</li>
+                <li><strong>Onboarding:</strong> One-time on-device onboarding with a single profile per device and no account required.</li>
+                <li><strong>Navigation:</strong> Custom animated bottom navigation with unique per-tab micro-interactions, smooth page transitions, and custom toast confirmations.</li>
+              </ul>
+            </div>
           </section>
 
           <hr className="readme-divider" />
@@ -58,16 +89,52 @@ export default function ProjectModal({ project, onClose }) {
                 <thead>
                   <tr>
                     <th>Layer</th>
-                    <th>Technology</th>
+                    <th>Tool</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Frontend / App</td><td>Flutter (Dart)</td></tr>
-                  <tr><td>OCR & ML</td><td>Google ML Kit (On-device Text Recognition)</td></tr>
-                  <tr><td>AI Engine</td><td>OpenAI / Gemini API Integration</td></tr>
-                  <tr><td>Database & Auth</td><td>Firebase / SQLite</td></tr>
+                  <tr><td>Framework</td><td>Flutter (Dart)</td></tr>
+                  <tr><td>OCR</td><td>Google ML Kit (on-device text recognition)</td></tr>
+                  <tr><td>PDF/DOCX Parsing</td><td>Syncfusion Flutter PDF, docx_to_text</td></tr>
+                  <tr><td>AI Generation</td><td>Groq API (Llama 3.3 70B)</td></tr>
+                  <tr><td>Local Database</td><td>SQLite (<code>sqflite</code>)</td></tr>
+                  <tr><td>Key-Value Storage</td><td><code>shared_preferences</code></td></tr>
+                  <tr><td>Notifications</td><td><code>flutter_local_notifications</code></td></tr>
+                  <tr><td>State Management</td><td>Provider</td></tr>
+                  <tr><td>Fonts</td><td>Google Fonts (Inter)</td></tr>
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* WHY LOCAL-FIRST */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Architecture & Local-First Design</h3>
+            <p className="readme-intro">
+              Notiq stores all data (notes, exams, scores) directly on-device via SQLite. There is no backend server, no account required, and no cost to run. OCR runs entirely on-device as well. Only the extracted text of a note is sent to the AI API, and only when the user explicitly requests a reviewer, flashcards, or a quiz.
+            </p>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* KNOWN LIMITATIONS */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Known Limitations</h3>
+            <ul>
+              <li><strong>Handwriting OCR:</strong> Performs well on printed/typed text but is unreliable on handwritten notes due to mobile OCR hardware constraints.</li>
+              <li><strong>API Rate Limits:</strong> AI generation is capped by Groq's free tier, auto-truncating documents longer than 6,000-7,000 words.</li>
+              <li><strong>Platform:</strong> Targets Android only.</li>
+              <li><strong>Single Profile:</strong> Single profile per device by design, with no multi-user support.</li>
+            </ul>
+          </section>
+
+          <hr className="readme-divider" />
+
+          <section className="readme-section readme-footer-info">
+            <div className="readme-note">
+              <strong>Author & License:</strong> Built by Patyong as a self-directed learning project in mobile development, on-device ML, and AI integration. Educational/portfolio use.
             </div>
           </section>
         </div>
@@ -78,30 +145,77 @@ export default function ProjectModal({ project, onClose }) {
       return (
         <div className="modal-readme-body">
           <p className="readme-intro">
-            SmartFit Thesis is a wearable IoT system designed for real-time exercise form evaluation, posture monitoring, and exertion detection using dual IMU sensors and heart rate monitoring.
+            SmartFit is a wearable IoT system for real-time exercise form evaluation, posture monitoring, and exertion detection using IMU and heart rate sensors. Developed at Batangas State University - The National Engineering University (BS Computer Engineering Design Project 2026).
           </p>
 
           <hr className="readme-divider" />
 
           {/* OVERVIEW */}
           <section className="readme-section">
-            <h3 className="readme-heading">Overview & Problem Statement</h3>
+            <h3 className="readme-heading">Overview</h3>
             <p className="readme-intro">
-              Incorrect exercise posture leads to injuries and reduced workout efficiency. SmartFit provides real-time biomechanical feedback using a lightweight wearable system streaming motion data over Bluetooth Low Energy (BLE) to a mobile companion app.
+              SmartFit is a two-node wearable fitness assistant that gives users real-time, objective feedback on their exercise form. A wrist-mounted sensor tracks movement quality (rep speed, jerk/smoothness) while a chest-mounted sensor tracks posture and heart rate. Both stream data over Bluetooth Low Energy (BLE) to a companion Android app, which processes everything locally on the device with no cloud dependency, no internet requirement mid-workout, and no exposure of biometric data to third parties.
+            </p>
+            <p className="readme-intro" style={{ marginTop: '12px' }}>
+              On top of hardware tracking, SmartFit includes an AI-assisted virtual coaching module: users can scan their body via photo, set a physique goal and timeline, and receive a feasibility-checked meal plan and a curated set of exercise tutorials restricted specifically to upper-body/core movements the wearable can verify.
             </p>
           </section>
 
           <hr className="readme-divider" />
 
-          {/* KEY FEATURES */}
+          {/* CORE FEATURES */}
           <section className="readme-section">
-            <h3 className="readme-heading">Key Features</h3>
-            <ul>
-              <li><strong>Two-Node Sensor Architecture:</strong> Dual ESP32 microcontrollers with MPU6050 IMUs stream synchronized joint angle data.</li>
-              <li><strong>Real-Time Form Evaluation:</strong> Local edge algorithms compute posture angles and detect rep count, velocity, and range of motion.</li>
-              <li><strong>Exertion & Heart Rate Tracking:</strong> Monitors heart rate metrics to calculate real-time physical exertion levels.</li>
-              <li><strong>AI Virtual Coaching:</strong> Provides voice and visual feedback on mobile when form breaks or threshold limits are exceeded.</li>
-            </ul>
+            <h3 className="readme-heading">Core Features</h3>
+
+            <div className="readme-subsection">
+              <h4>Real-Time Biomechanical Tracking</h4>
+              <ul>
+                <li><strong>Rep-Speed Classification:</strong> Flags movements as too fast, too slow, or controlled based on wrist angular velocity against a calibrated baseline.</li>
+                <li><strong>Posture Monitoring:</strong> Detects unsafe forward/lateral torso lean using a calibrated neutral spinal baseline.</li>
+                <li><strong>Jerk-Based Smoothness:</strong> Computes kinematic jerk (rate of change of acceleration) to catch erratic, uncontrolled movement.</li>
+                <li><strong>Heart Rate & Exertion Zones:</strong> Classifies effort as under-exertion, optimal, or overexertion in real time.</li>
+                <li><strong>Live Visual & Haptic Alerts:</strong> Form warnings interrupt the dashboard with actionable guidance ("Slow Down," "Correct Your Posture") and auto-resume after a few seconds.</li>
+              </ul>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>AI-Assisted Virtual Coaching</h4>
+              <ul>
+                <li><strong>Body Scan & Goal Input:</strong> Photo analysis paired with target muscle selection and timeline input.</li>
+                <li><strong>Timeline Feasibility Check:</strong> Flags unrealistic goals and proposes an adjusted, safer timeframe.</li>
+                <li><strong>Automated Meal Planning:</strong> Daily calorie target and meal breakdown tailored to the user's goal.</li>
+                <li><strong>Sensor-Restricted Exercise Filtering:</strong> Recommends exercises the wrist/torso IMUs can verify (e.g., bicep curls, lateral raises, overhead presses, bent-over rows).</li>
+              </ul>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>Gamification & Privacy</h4>
+              <ul>
+                <li><strong>Gamification:</strong> XP/leveling system tied to workout consistency and form quality, session summaries (% perfect reps, posture warning count), and weekly streak tracking.</li>
+                <li><strong>Privacy by Design:</strong> All sensor data and session history are processed and stored locally on the phone in compliance with the Philippine Data Privacy Act of 2012 (R.A. No. 10173).</li>
+              </ul>
+            </div>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* SYSTEM ARCHITECTURE */}
+          <section className="readme-section">
+            <h3 className="readme-heading">System Architecture</h3>
+            <div className="code-block">
+              <code>
+                Wrist Node (ESP32 + IMU)<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;│ ESP-NOW (peer-to-peer, no router needed)<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;▼<br />
+                Torso Node (ESP32 + IMU + Heart Rate Sensor)<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;│ Aggregates & forwards via BLE GATT<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;▼<br />
+                Companion Mobile App (Flutter, Android)<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;│ Local edge processing - no cloud<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;▼<br />
+                Real-time dashboard, alerts, session logs
+              </code>
+            </div>
           </section>
 
           <hr className="readme-divider" />
@@ -109,21 +223,68 @@ export default function ProjectModal({ project, onClose }) {
           {/* TECH STACK */}
           <section className="readme-section">
             <h3 className="readme-heading">Tech Stack</h3>
-            <div className="table-responsive">
-              <table className="readme-table">
-                <thead>
-                  <tr>
-                    <th>Layer</th>
-                    <th>Technology</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Hardware</td><td>ESP32, MPU6050 IMU, Heart Rate Sensor</td></tr>
-                  <tr><td>Protocol</td><td>Bluetooth Low Energy (BLE)</td></tr>
-                  <tr><td>Mobile App</td><td>Flutter (Android)</td></tr>
-                  <tr><td>Processing</td><td>On-device Edge Processing & Kinematic Algorithms</td></tr>
-                </tbody>
-              </table>
+
+            <div className="readme-subsection">
+              <h4>Mobile Application</h4>
+              <div className="table-responsive">
+                <table className="readme-table">
+                  <thead>
+                    <tr>
+                      <th>Layer</th>
+                      <th>Technology</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Framework</td><td>Flutter (Dart), Android-only</td></tr>
+                    <tr><td>State Management</td><td>Riverpod</td></tr>
+                    <tr><td>Navigation</td><td>go_router</td></tr>
+                    <tr><td>Database & Storage</td><td>sqflite, shared_preferences</td></tr>
+                    <tr><td>Bluetooth</td><td>flutter_blue_plus (BLE)</td></tr>
+                    <tr><td>AI Integration</td><td>Gemini API via google_generative_ai</td></tr>
+                    <tr><td>UI / Charts / Alerts</td><td>fl_chart, flutter_local_notifications, vibration</td></tr>
+                    <tr><td>Media Capture</td><td>camera, image_picker</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="readme-subsection">
+              <h4>Firmware & Hardware</h4>
+              <div className="table-responsive">
+                <table className="readme-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Technology</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Dev Environment</td><td>Arduino IDE / PlatformIO</td></tr>
+                    <tr><td>Peer-to-Peer Link</td><td>ESP-NOW (built into ESP32 core)</td></tr>
+                    <tr><td>BLE Stack</td><td>NimBLE-Arduino</td></tr>
+                    <tr><td>Sensors & Libraries</td><td>Adafruit_MPU6050 IMU, SparkFun MAX3010x Heart Rate</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* STANDARDS & SCREENS */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Standards Followed & App Workflow</h3>
+            <ul>
+              <li><strong>Standards:</strong> R.A. No. 10173 (Data Privacy Act), IEEE 11073 (Biometric Health Devices), I2C Bus Spec, BLE Core Spec.</li>
+              <li><strong>App Workflow:</strong> Launch & Disclaimer -&gt; AI Body Scanner -&gt; AI Coach Plan -&gt; Exercise Tutorial -&gt; Calibration -&gt; Active Dashboard -&gt; Form Warning Alert -&gt; Progress & Level.</li>
+            </ul>
+          </section>
+
+          <hr className="readme-divider" />
+
+          <section className="readme-section readme-footer-info">
+            <div className="readme-note">
+              <strong>Disclaimer:</strong> SmartFit is a prototype developed for academic purposes and is not a medical device.
             </div>
           </section>
         </div>
@@ -134,7 +295,7 @@ export default function ProjectModal({ project, onClose }) {
       return (
         <div className="modal-readme-body">
           <p className="readme-intro">
-            A lightweight, multi-tenant inventory management web app built for small businesses like cafes - stock counting, low-stock alerts, and owner/employee accountability, without the complexity or cost of enterprise inventory tools.
+            A lightweight, multi-tenant inventory management web app built for small businesses like cafes: stock counting, low-stock alerts, and owner/employee accountability, without the complexity or cost of enterprise inventory tools.
           </p>
 
           <hr className="readme-divider" />
@@ -255,7 +416,7 @@ export default function ProjectModal({ project, onClose }) {
       return (
         <div className="modal-readme-body">
           <p className="readme-intro">
-            An AI-assisted system that predicts customer payment behavior, automatically escalates reminders, understands customer responses, generates personalized messages, and recommends payment plans - reducing manual collections work and improving recovery rates.
+            An AI-assisted system that predicts customer payment behavior, automatically escalates reminders, understands customer responses, generates personalized messages, and recommends payment plans: reducing manual collections work and improving recovery rates.
           </p>
 
           <hr className="readme-divider" />
@@ -348,9 +509,9 @@ export default function ProjectModal({ project, onClose }) {
             <h3 className="readme-heading">Solution Concept</h3>
             <div className="code-block">
               <code>
-                Invoice Data → Payment Prediction → Dynamic Escalation → NLP Response Analysis<br />
-                → Personalized Message → Payment Plan Recommendation → Human Approval<br />
-                → Customer Response → Feedback
+                Invoice Data -&gt; Payment Prediction -&gt; Dynamic Escalation -&gt; NLP Response Analysis<br />
+                -&gt; Personalized Message -&gt; Payment Plan Recommendation -&gt; Human Approval<br />
+                -&gt; Customer Response -&gt; Feedback
               </code>
             </div>
 
@@ -458,10 +619,10 @@ export default function ProjectModal({ project, onClose }) {
 
   const getTagline = () => {
     if (project.id === 'notiq') {
-      return 'AI-Powered Study Companion App for Notes, Flashcards & Exam Reminders';
+      return 'Scan it. Study it. Ace it.';
     }
     if (project.id === 'smartfit') {
-      return 'Wearable IoT System for Real-Time Exercise Posture & Exertion Monitoring';
+      return 'Wearable IoT System for Real-Time Exercise Form Evaluation & Posture Monitoring';
     }
     if (project.id === 'inventory-app') {
       return 'Multi-Tenant Stock Management, Low-Stock Alerts & Employee Accountability';
