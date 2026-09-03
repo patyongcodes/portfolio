@@ -18,6 +18,118 @@ export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
   const renderModalContent = () => {
+    if (project.id === 'notiq') {
+      return (
+        <div className="modal-readme-body">
+          <p className="readme-intro">
+            Notiq is an Android study companion app built with Flutter, on-device ML, and AI integration. It transforms photos of notes and documents into AI-generated study guides, interactive flashcards, quizzes, and smart exam reminders.
+          </p>
+
+          <hr className="readme-divider" />
+
+          {/* PROBLEM STATEMENT */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Problem Statement</h3>
+            <p className="readme-intro">
+              Students spend significant time manually converting handwritten notes and textbook pages into study materials like flashcards and revision summaries. Notiq automates this workflow using OCR and generative AI, allowing students to focus on active recall and retention.
+            </p>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* KEY FEATURES */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Key Features</h3>
+            <ul>
+              <li><strong>Document Scanning & OCR:</strong> Capture handwritten or printed notes with camera/gallery and extract high-accuracy text on-device.</li>
+              <li><strong>AI Study Guides & Quizzes:</strong> Automatically generate structured summaries, flashcards, and multiple-choice quizzes from scanned text.</li>
+              <li><strong>Smart Exam Reminders:</strong> Schedule intelligent review notifications based on upcoming exam dates and spaced-repetition scheduling.</li>
+              <li><strong>Offline-First Capabilities:</strong> Save generated flashcards and review offline with local database syncing.</li>
+            </ul>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* TECH STACK */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Tech Stack</h3>
+            <div className="table-responsive">
+              <table className="readme-table">
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>Technology</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Frontend / App</td><td>Flutter (Dart)</td></tr>
+                  <tr><td>OCR & ML</td><td>Google ML Kit (On-device Text Recognition)</td></tr>
+                  <tr><td>AI Engine</td><td>OpenAI / Gemini API Integration</td></tr>
+                  <tr><td>Database & Auth</td><td>Firebase / SQLite</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    if (project.id === 'smartfit') {
+      return (
+        <div className="modal-readme-body">
+          <p className="readme-intro">
+            SmartFit Thesis is a wearable IoT system designed for real-time exercise form evaluation, posture monitoring, and exertion detection using dual IMU sensors and heart rate monitoring.
+          </p>
+
+          <hr className="readme-divider" />
+
+          {/* OVERVIEW */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Overview & Problem Statement</h3>
+            <p className="readme-intro">
+              Incorrect exercise posture leads to injuries and reduced workout efficiency. SmartFit provides real-time biomechanical feedback using a lightweight wearable system streaming motion data over Bluetooth Low Energy (BLE) to a mobile companion app.
+            </p>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* KEY FEATURES */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Key Features</h3>
+            <ul>
+              <li><strong>Two-Node Sensor Architecture:</strong> Dual ESP32 microcontrollers with MPU6050 IMUs stream synchronized joint angle data.</li>
+              <li><strong>Real-Time Form Evaluation:</strong> Local edge algorithms compute posture angles and detect rep count, velocity, and range of motion.</li>
+              <li><strong>Exertion & Heart Rate Tracking:</strong> Monitors heart rate metrics to calculate real-time physical exertion levels.</li>
+              <li><strong>AI Virtual Coaching:</strong> Provides voice and visual feedback on mobile when form breaks or threshold limits are exceeded.</li>
+            </ul>
+          </section>
+
+          <hr className="readme-divider" />
+
+          {/* TECH STACK */}
+          <section className="readme-section">
+            <h3 className="readme-heading">Tech Stack</h3>
+            <div className="table-responsive">
+              <table className="readme-table">
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>Technology</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Hardware</td><td>ESP32, MPU6050 IMU, Heart Rate Sensor</td></tr>
+                  <tr><td>Protocol</td><td>Bluetooth Low Energy (BLE)</td></tr>
+                  <tr><td>Mobile App</td><td>Flutter (Android)</td></tr>
+                  <tr><td>Processing</td><td>On-device Edge Processing & Kinematic Algorithms</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
     if (project.id === 'inventory-app') {
       return (
         <div className="modal-readme-body">
@@ -345,6 +457,12 @@ export default function ProjectModal({ project, onClose }) {
   };
 
   const getTagline = () => {
+    if (project.id === 'notiq') {
+      return 'AI-Powered Study Companion App for Notes, Flashcards & Exam Reminders';
+    }
+    if (project.id === 'smartfit') {
+      return 'Wearable IoT System for Real-Time Exercise Posture & Exertion Monitoring';
+    }
     if (project.id === 'inventory-app') {
       return 'Multi-Tenant Stock Management, Low-Stock Alerts & Employee Accountability';
     }
@@ -386,26 +504,26 @@ export default function ProjectModal({ project, onClose }) {
         {project.id === 'notiq' && (
           <div className="modal-actions-bar">
             <a
-              href={project.githubUrl || '#'}
+              href={project.appDownloadUrl || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-primary"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Source Code
+              Download App
             </a>
             <a
-              href={project.liveUrl || '#'}
+              href={project.promoVideoUrl || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-secondary"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" strokeLinecap="round" strokeLinejoin="round" />
+                <polygon points="5 3 19 12 5 21 5 3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Live Demo
+              Promotion Video
             </a>
           </div>
         )}
