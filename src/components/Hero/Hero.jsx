@@ -129,13 +129,14 @@ const TECH_STACKS = [
 export default function Hero() {
   const [isRevealed, setIsRevealed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isContentVisible, setIsContentVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState(LOADING_MESSAGES[0].text);
 
   useEffect(() => {
     let animationFrameId;
     let startTime = null;
-    const duration = 3600; // Extended loading time for smoother progression
+    const duration = 3000;
 
     const easeInOutQuint = (t) => t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
 
@@ -157,8 +158,12 @@ export default function Hero() {
       if (progressRatio < 1) {
         animationFrameId = requestAnimationFrame(animateLoading);
       } else {
-        // Pause briefly at 100% so the user sees completion before fading out
-        setTimeout(() => setIsLoading(false), 500);
+        setTimeout(() => {
+          setIsLoading(false);
+          setTimeout(() => {
+            setIsContentVisible(true);
+          }, 350);
+        }, 300);
       }
     };
 
@@ -207,14 +212,13 @@ export default function Hero() {
   };
 
   return (
-    <section className={`hero ${!isLoading ? 'is-loaded' : ''}`} id="home">
+    <section className={`hero ${isContentVisible ? 'is-loaded' : ''}`} id="home">
       {/* INTRO OVERLAY */}
       <div className={`hero-loader ${!isLoading ? 'fade-out' : ''}`} aria-hidden={!isLoading}>
         <div className="loader-hud hud-top-left">PORTFOLIO // OS.26</div>
         <div className="loader-hud hud-bottom-right">PATRICK CARPIO</div>
 
         <div className="loader-content">
-          {/* ORBITING TECH STACK LOADER */}
           <div className="circular-loader">
             <div className="tech-orbit-container">
               {TECH_STACKS.map((tech, index) => (
@@ -233,7 +237,6 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Central Core */}
             <div className="circular-inner">
               <span className="loader-welcome">WELCOME TO MY PORTFOLIO</span>
 
