@@ -45,7 +45,6 @@ const LOADING_MESSAGES = [
   { threshold: 100, text: "Ready!" }
 ];
 
-// 8 Tech Stack Icons (Replaced VS Code with Dart)
 const TECH_STACKS = [
   {
     name: "Flutter",
@@ -136,16 +135,16 @@ export default function Hero() {
   useEffect(() => {
     let animationFrameId;
     let startTime = null;
-    const duration = 2200;
+    const duration = 3600; // Extended loading time for smoother progression
 
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const easeInOutQuint = (t) => t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
 
     const animateLoading = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       
       const progressRatio = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutCubic(progressRatio);
+      const easedProgress = easeInOutQuint(progressRatio);
       const currentPercent = Math.floor(easedProgress * 100);
 
       setProgress(currentPercent);
@@ -158,7 +157,8 @@ export default function Hero() {
       if (progressRatio < 1) {
         animationFrameId = requestAnimationFrame(animateLoading);
       } else {
-        setTimeout(() => setIsLoading(false), 400);
+        // Pause briefly at 100% so the user sees completion before fading out
+        setTimeout(() => setIsLoading(false), 500);
       }
     };
 

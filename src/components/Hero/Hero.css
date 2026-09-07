@@ -35,7 +35,7 @@ body {
 }
 
 /* =========================================================
-   TRANSPARENT LOADER CIRCLES & SMOOTH FADE OUT
+   TRANSPARENT LOADER CIRCLES, FADE IN & FADE OUT EFFECTS
    ========================================================= */
 .hero-loader {
   position: fixed;
@@ -48,16 +48,34 @@ body {
   overflow: hidden;
   backdrop-filter: blur(12px);
   will-change: opacity, transform, filter;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0s linear 0.8s;
+  
+  /* Initial Fade-In Animation */
+  animation: loaderFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  /* Smooth Fade-Out Transitions */
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0s linear 1.1s;
+}
+
+@keyframes loaderFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
 }
 
 .hero-loader.fade-out {
   opacity: 0;
-  transform: scale(1.05);
-  filter: blur(10px);
+  transform: scale(1.06);
+  filter: blur(14px);
   visibility: hidden;
   pointer-events: none;
 }
@@ -102,7 +120,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  animation: orbitClockwise 16s linear infinite;
+  animation: orbitClockwise 18s linear infinite;
   will-change: transform;
 }
 
@@ -141,7 +159,7 @@ body {
   justify-content: center;
   width: 100%;
   height: 100%;
-  animation: counterRotateIcons 16s linear infinite;
+  animation: counterRotateIcons 18s linear infinite;
   will-change: transform;
 }
 
@@ -234,7 +252,7 @@ body {
   background: var(--color-primary, #6366f1);
   border-radius: 999px;
   will-change: width;
-  transition: width 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .loader-status {
@@ -268,7 +286,7 @@ body {
 }
 
 /* =========================================================
-   BASE DESKTOP STYLES
+   BASE DESKTOP STYLES & HERO FADE-IN ENTRANCE
    ========================================================= */
 .hero {
   position: relative;
@@ -360,13 +378,14 @@ body {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay);
 }
 
+/* HERO CONTENTS SMOOTH FADE-IN ANIMATION */
 .hero .avatar,
 .hero .hero-greeting,
 .hero .hero-headline,
 .hero .hero-description,
 .hero .hero-cta {
   opacity: 0;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .hero.is-loaded .avatar,
@@ -374,23 +393,25 @@ body {
 .hero.is-loaded .hero-headline,
 .hero.is-loaded .hero-description,
 .hero.is-loaded .hero-cta {
-  animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroEntrance 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.hero.is-loaded .avatar { animation-delay: 0.10s; }
-.hero.is-loaded .hero-greeting { animation-delay: 0.20s; }
-.hero.is-loaded .hero-headline { animation-delay: 0.30s; }
-.hero.is-loaded .hero-description { animation-delay: 0.40s; }
-.hero.is-loaded .hero-cta { animation-delay: 0.50s; }
+.hero.is-loaded .avatar { animation-delay: 0.15s; }
+.hero.is-loaded .hero-greeting { animation-delay: 0.30s; }
+.hero.is-loaded .hero-headline { animation-delay: 0.45s; }
+.hero.is-loaded .hero-description { animation-delay: 0.60s; }
+.hero.is-loaded .hero-cta { animation-delay: 0.75s; }
 
 @keyframes heroEntrance {
   0% {
     opacity: 0;
-    transform: translateY(17px) scale(0.98);
+    transform: translateY(22px) scale(0.97);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
 }
 
@@ -566,7 +587,6 @@ body {
     height: 30.1px;
   }
 
-  /* LOADER MOBILE PROPORTIONAL SCALING & ICON REDUCTION */
   .circular-loader {
     width: 310px;
     height: 310px;
@@ -662,7 +682,6 @@ body {
     font-size: 14.5px;
   }
 
-  /* SMALL DEVICE LOADER & ICON ADJUSTMENTS */
   .circular-loader {
     width: 270px;
     height: 270px;
