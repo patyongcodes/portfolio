@@ -1,6 +1,275 @@
-/* ===========================
+/* =========================================================
+   THEME-ADAPTIVE LOADER OUTLINES & ANTI-FLASH SETTINGS
+   ========================================================= */
+:root {
+  color-scheme: light dark;
+  --loader-border-color: #cbd5e1;
+  --loader-ambient-border: rgba(203, 213, 225, 0.8);
+  --loader-track-bg: #f1f5f9;
+}
+
+html,
+body {
+  background-color: var(--color-bg, #ffffff);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --loader-border-color: #475569;
+    --loader-ambient-border: rgba(71, 85, 105, 0.6);
+    --loader-track-bg: #1e293b;
+  }
+
+  html,
+  body {
+    background-color: var(--color-bg, #0f172a);
+  }
+}
+
+[data-theme='dark'],
+.dark,
+.dark-mode {
+  --loader-border-color: #475569;
+  --loader-ambient-border: rgba(71, 85, 105, 0.6);
+  --loader-track-bg: #1e293b;
+}
+
+/* =========================================================
+   TRANSPARENT LOADER CIRCLES & SMOOTH FADE OUT
+   ========================================================= */
+.hero-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  will-change: opacity, transform, filter;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-loader.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  filter: blur(8px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* CORNER HUD ELEMENTS */
+.loader-hud {
+  position: absolute;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-body);
+  opacity: 0.5;
+  user-select: none;
+}
+
+.hud-top-left { top: 32px; left: 32px; }
+.hud-bottom-right { bottom: 32px; right: 32px; }
+
+/* CONTENT CONTAINER */
+.loader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* EXPANDED CIRCULAR LOADER AREA */
+.circular-loader {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ORBIT CONTAINER */
+.tech-orbit-container {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: orbitClockwise 16s linear infinite;
+  will-change: transform;
+}
+
+/* ENLARGED ORBITING CIRCLE NODES (52px) */
+.tech-orbit-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  margin-left: -26px;
+  transform: rotate(calc(45deg * var(--i))) translateY(-152px);
+  background: var(--color-bg);
+  border: 1.5px solid var(--loader-border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.tech-icon-unrotate {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(calc(-45deg * var(--i)));
+}
+
+.tech-icon-upright {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: counterRotateIcons 16s linear infinite;
+  will-change: transform;
+}
+
+.tech-icon-upright svg {
+  display: block;
+  margin: auto;
+  flex-shrink: 0;
+}
+
+@keyframes orbitClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counterRotateIcons {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* CENTER CORE HOUSING TEXT */
+.circular-inner {
+  position: relative;
+  z-index: 2;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* TYPOGRAPHY INSIDE CENTER CORE */
+.loader-welcome {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--color-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.percent-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  z-index: 1;
+  margin-top: 1px;
+}
+
+.loader-percent {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--color-primary, #6366f1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.percent-symbol {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary, #6366f1);
+  opacity: 0.85;
+}
+
+.mini-progress-track {
+  width: 80px;
+  height: 3px;
+  background: var(--loader-track-bg);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 2px 0;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: var(--color-primary, #6366f1);
+  border-radius: 999px;
+  will-change: width;
+  transition: width 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.loader-status {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loader-tech-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 1px;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-body);
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.loader-tech-tags .dot {
+  color: var(--color-primary, #6366f1);
+}
+
+/* =========================================================
    BASE DESKTOP STYLES
-   =========================== */
+   ========================================================= */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -32,7 +301,6 @@
   text-align: center;
 }
 
-/* AVATAR CONTAINER */
 .avatar {
   position: relative;
   width: 119px;
@@ -47,7 +315,6 @@
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* TILE GRIDS */
 .tile-grid {
   position: absolute;
   inset: 0;
@@ -58,18 +325,8 @@
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.patyong-grid {
-  z-index: 2;
-}
-
-.gojo-grid {
-  z-index: 3;
-}
-
-.avatar:hover .tile-grid,
-.avatar.is-revealed .tile-grid {
-  transform: scale(1);
-}
+.patyong-grid { z-index: 2; }
+.gojo-grid { z-index: 3; }
 
 .tile {
   background-size: calc(var(--grid-size, 16) * 100%) calc(var(--grid-size, 16) * 100%);
@@ -81,7 +338,6 @@
   backface-visibility: hidden;
 }
 
-/* TWO-PHASE PIXEL DISSOLVE */
 .gojo-tile {
   opacity: 1;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay);
@@ -104,22 +360,28 @@
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay);
 }
 
-/* ENTRANCE ANIMATIONS */
-.avatar,
-.hero-greeting,
-.hero-headline,
-.hero-description,
-.hero-cta {
+.hero .avatar,
+.hero .hero-greeting,
+.hero .hero-headline,
+.hero .hero-description,
+.hero .hero-cta {
   opacity: 0;
   will-change: transform, opacity;
+}
+
+.hero.is-loaded .avatar,
+.hero.is-loaded .hero-greeting,
+.hero.is-loaded .hero-headline,
+.hero.is-loaded .hero-description,
+.hero.is-loaded .hero-cta {
   animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.avatar { animation-delay: 0.10s; }
-.hero-greeting { animation-delay: 0.20s; }
-.hero-headline { animation-delay: 0.30s; }
-.hero-description { animation-delay: 0.40s; }
-.hero-cta { animation-delay: 0.50s; }
+.hero.is-loaded .avatar { animation-delay: 0.10s; }
+.hero.is-loaded .hero-greeting { animation-delay: 0.20s; }
+.hero.is-loaded .hero-headline { animation-delay: 0.30s; }
+.hero.is-loaded .hero-description { animation-delay: 0.40s; }
+.hero.is-loaded .hero-cta { animation-delay: 0.50s; }
 
 @keyframes heroEntrance {
   0% {
@@ -132,7 +394,6 @@
   }
 }
 
-/* DESKTOP TYPOGRAPHY */
 .hero-greeting {
   font-size: 15.3px;
   color: var(--color-ink);
@@ -167,7 +428,6 @@
   transition: color 0.3s ease;
 }
 
-/* REDESIGNED CTA BUTTON */
 .hero-cta {
   margin-top: 30.6px;
   display: inline-flex;
@@ -209,12 +469,8 @@
 }
 
 @keyframes ctaShimmer {
-  0%, 70% {
-    left: -100%;
-  }
-  100% {
-    left: 200%;
-  }
+  0%, 70% { left: -100%; }
+  100% { left: 200%; }
 }
 
 .hero-cta:hover {
@@ -252,12 +508,8 @@
   transform: translateY(1.7px);
 }
 
-.hero-cta svg {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
 /* =========================================================
-   MOBILE VIEWPORT
+   MOBILE VIEWPORT & TEXT CLIPPING FIXES
    ========================================================= */
 @media (max-width: 768px) {
   .hero {
@@ -290,13 +542,13 @@
   }
 
   .hero-headline {
-    font-size: 39.56px; /* +15% from 34.4px */
+    font-size: 39.56px;
     line-height: 1.24;
     margin-bottom: 25.9px;
   }
 
   .hero-description {
-    font-size: 17.46px; /* -10% from 19.4px */
+    font-size: 17.46px;
     line-height: 1.50;
     margin-top: 0;
     margin-bottom: 38.7px;
@@ -313,6 +565,64 @@
     width: 30.1px;
     height: 30.1px;
   }
+
+  /* LOADER MOBILE PROPORTIONAL SCALING & ICON REDUCTION */
+  .circular-loader {
+    width: 310px;
+    height: 310px;
+  }
+
+  .tech-orbit-node {
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
+    transform: rotate(calc(45deg * var(--i))) translateY(-130px);
+  }
+
+  .tech-icon-upright svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .circular-inner {
+    width: 195px;
+    height: 195px;
+    padding: 10px;
+    gap: 3px;
+  }
+
+  .loader-welcome {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .loader-percent {
+    font-size: 32px;
+  }
+
+  .percent-symbol {
+    font-size: 14px;
+  }
+
+  .mini-progress-track {
+    width: 65px;
+    height: 3px;
+  }
+
+  .loader-status {
+    font-size: 10px;
+    max-width: 145px;
+  }
+
+  .loader-tech-tags {
+    font-size: 7.5px;
+    gap: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .hud-top-left { top: 20px; left: 20px; font-size: 10px; }
+  .hud-bottom-right { bottom: 20px; right: 20px; font-size: 10px; }
 }
 
 @media (max-width: 480px) {
@@ -336,13 +646,13 @@
   }
 
   .hero-headline {
-    font-size: 34.62px; /* +15% from 30.1px */
+    font-size: 34.62px;
     line-height: 1.26;
     margin-bottom: 21.5px;
   }
 
   .hero-description {
-    font-size: 15.48px; /* -10% from 17.2px */
+    font-size: 15.48px;
     line-height: 1.48;
     margin-bottom: 32.2px;
   }
@@ -350,5 +660,60 @@
   .hero-cta {
     padding: 7.5px 7.5px 7.5px 19.4px;
     font-size: 14.5px;
+  }
+
+  /* SMALL DEVICE LOADER & ICON ADJUSTMENTS */
+  .circular-loader {
+    width: 270px;
+    height: 270px;
+  }
+
+  .tech-orbit-node {
+    width: 34px;
+    height: 34px;
+    margin-top: -17px;
+    margin-left: -17px;
+    transform: rotate(calc(45deg * var(--i))) translateY(-112px);
+  }
+
+  .tech-icon-upright svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .circular-inner {
+    width: 170px;
+    height: 170px;
+    padding: 8px;
+    gap: 2px;
+  }
+
+  .loader-welcome {
+    font-size: 7.5px;
+    letter-spacing: 0.05em;
+  }
+
+  .loader-percent {
+    font-size: 28px;
+  }
+
+  .percent-symbol {
+    font-size: 12px;
+  }
+
+  .mini-progress-track {
+    width: 55px;
+    height: 2.5px;
+  }
+
+  .loader-status {
+    font-size: 9px;
+    max-width: 130px;
+  }
+
+  .loader-tech-tags {
+    font-size: 7px;
+    gap: 3px;
+    letter-spacing: 0.04em;
   }
 }
