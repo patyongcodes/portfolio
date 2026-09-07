@@ -51,13 +51,13 @@ body {
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+              visibility 0s linear 0.8s;
 }
 
 .hero-loader.fade-out {
   opacity: 0;
-  transform: scale(1.04);
-  filter: blur(8px);
+  transform: scale(1.05);
+  filter: blur(10px);
   visibility: hidden;
   pointer-events: none;
 }
