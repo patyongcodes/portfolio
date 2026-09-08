@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import cert1 from '../../assets/images/cert1.png';
-import cert2 from '../../assets/images/cert2.png';
 import cert3 from '../../assets/images/cert3.png';
 
 const CERTIFICATIONS_DATA = [
@@ -17,13 +16,6 @@ const CERTIFICATIONS_DATA = [
     title: 'HTML Fundamentals',
     issuer: 'CodeCred',
     image: cert1,
-  },
-  {
-    id: 'flutter-dart-fundamentals',
-    date: 'Aug 2026',
-    title: 'Flutter Dart Fundamentals',
-    issuer: 'CodeCred',
-    image: cert2,
   },
 ];
 
