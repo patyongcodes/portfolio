@@ -665,7 +665,7 @@ export default function ProjectModal({ project, onClose }) {
         {project.id === 'notiq' && (
           <div className="modal-actions-bar">
             <a
-              href={project.appDownloadUrl || '#'}
+              href={project.appDownloadUrl || "https://drive.google.com/drive/folders/19M6gVp8ujTpYYta3MBlu-qJ6pIHpDjMC"}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-primary"
