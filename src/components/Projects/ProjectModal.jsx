@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import './ProjectModal.css';
 
+// Default external links for Notiq
+const NOTIQ_DOWNLOAD_URL = "https://drive.google.com/drive/folders/19M6gVp8ujTpYYta3MBlu-qJ6pIHpDjMC";
+const NOTIQ_PROMO_URL = "https://www.instagram.com/reel/Dbsm-rfTh06/?stkn=NGYzajRnMzBxODMw";
+
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -16,6 +20,20 @@ export default function ProjectModal({ project, onClose }) {
   }, [onClose]);
 
   if (!project) return null;
+
+  const getValidUrl = (url, fallback) => {
+    if (!url || url === '#' || url === '/' || url.trim() === '') {
+      return fallback;
+    }
+    // Ensure URL has http protocol
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
+  const downloadUrl = getValidUrl(project.appDownloadUrl, NOTIQ_DOWNLOAD_URL);
+  const promoUrl = getValidUrl(project.promoVideoUrl, NOTIQ_PROMO_URL);
 
   const renderModalContent = () => {
     if (project.id === 'notiq') {
@@ -150,7 +168,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* OVERVIEW */}
           <section className="readme-section">
             <h3 className="readme-heading">Overview</h3>
             <p className="readme-intro">
@@ -163,7 +180,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* CORE FEATURES */}
           <section className="readme-section">
             <h3 className="readme-heading">Core Features</h3>
 
@@ -199,7 +215,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* SYSTEM ARCHITECTURE */}
           <section className="readme-section">
             <h3 className="readme-heading">System Architecture</h3>
             <div className="code-block">
@@ -220,7 +235,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* TECH STACK */}
           <section className="readme-section">
             <h3 className="readme-heading">Tech Stack</h3>
 
@@ -271,7 +285,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* STANDARDS & SCREENS */}
           <section className="readme-section">
             <h3 className="readme-heading">Standards Followed & App Workflow</h3>
             <ul>
@@ -300,7 +313,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* PROBLEM STATEMENT */}
           <section className="readme-section">
             <h3 className="readme-heading">Why / Problem Statement</h3>
             <p className="readme-intro">
@@ -310,7 +322,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* STAKEHOLDERS / ROLES */}
           <section className="readme-section">
             <h3 className="readme-heading">Core Concepts & Roles</h3>
             <div className="table-responsive">
@@ -345,7 +356,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* KEY FEATURES */}
           <section className="readme-section">
             <h3 className="readme-heading">Key Features</h3>
             <ul>
@@ -358,7 +368,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* TECH STACK */}
           <section className="readme-section">
             <h3 className="readme-heading">Tech Stack</h3>
             <div className="table-responsive">
@@ -384,7 +393,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* DATA MODEL */}
           <section className="readme-section">
             <h3 className="readme-heading">Data Model</h3>
             <div className="code-block">
@@ -402,7 +410,6 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
-          {/* PROJECT STATUS */}
           <section className="readme-section readme-footer-info">
             <div className="readme-note">
               <strong>Project Status:</strong> Built full database schema + RLS policies, owner signup flow, employee invite flow via Resend, and shared login page. Active work continuing on route middleware, dashboard shells, station UI, item CRUD, and signature capture.
@@ -609,7 +616,6 @@ export default function ProjectModal({ project, onClose }) {
       );
     }
 
-    // Default README body fallback
     return (
       <div className="modal-readme-body">
         <p className="readme-intro">{project.description}</p>
@@ -665,10 +671,11 @@ export default function ProjectModal({ project, onClose }) {
         {project.id === 'notiq' && (
           <div className="modal-actions-bar">
             <a
-              href={project.appDownloadUrl || "https://drive.google.com/drive/folders/19M6gVp8ujTpYYta3MBlu-qJ6pIHpDjMC"}
+              href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-primary"
+              onClick={(e) => e.stopPropagation()}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round"/>
@@ -676,10 +683,11 @@ export default function ProjectModal({ project, onClose }) {
               Download App
             </a>
             <a
-              href={project.promoVideoUrl || "https://www.instagram.com/reel/Dbsm-rfTh06/?stkn=NGYzajRnMzBxODMw"}
+              href={promoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-secondary"
+              onClick={(e) => e.stopPropagation()}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polygon points="5 3 19 12 5 21 5 3" strokeLinecap="round" strokeLinejoin="round" />
