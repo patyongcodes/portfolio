@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import './ProjectModal.css';
 
-// Default external links for Notiq
 const NOTIQ_DOWNLOAD_URL = "https://drive.google.com/drive/folders/19M6gVp8ujTpYYta3MBlu-qJ6pIHpDjMC";
 const NOTIQ_PROMO_URL = "https://www.instagram.com/reel/Dbsm-rfTh06/?stkn=NGYzajRnMzBxODMw";
 
@@ -21,19 +20,20 @@ export default function ProjectModal({ project, onClose }) {
 
   if (!project) return null;
 
-  const getValidUrl = (url, fallback) => {
-    if (!url || url === '#' || url === '/' || url.trim() === '') {
-      return fallback;
+  // Resolve target URLs cleanly without falling back to '#'
+  const getDownloadUrl = () => {
+    if (project.appDownloadUrl && project.appDownloadUrl !== '#') {
+      return project.appDownloadUrl;
     }
-    // Ensure URL has http protocol
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return `https://${url}`;
-    }
-    return url;
+    return NOTIQ_DOWNLOAD_URL;
   };
 
-  const downloadUrl = getValidUrl(project.appDownloadUrl, NOTIQ_DOWNLOAD_URL);
-  const promoUrl = getValidUrl(project.promoVideoUrl, NOTIQ_PROMO_URL);
+  const getPromoUrl = () => {
+    if (project.promoVideoUrl && project.promoVideoUrl !== '#') {
+      return project.promoVideoUrl;
+    }
+    return NOTIQ_PROMO_URL;
+  };
 
   const renderModalContent = () => {
     if (project.id === 'notiq') {
@@ -168,6 +168,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* OVERVIEW */}
           <section className="readme-section">
             <h3 className="readme-heading">Overview</h3>
             <p className="readme-intro">
@@ -180,6 +181,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* CORE FEATURES */}
           <section className="readme-section">
             <h3 className="readme-heading">Core Features</h3>
 
@@ -215,6 +217,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* SYSTEM ARCHITECTURE */}
           <section className="readme-section">
             <h3 className="readme-heading">System Architecture</h3>
             <div className="code-block">
@@ -235,6 +238,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* TECH STACK */}
           <section className="readme-section">
             <h3 className="readme-heading">Tech Stack</h3>
 
@@ -285,6 +289,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* STANDARDS & SCREENS */}
           <section className="readme-section">
             <h3 className="readme-heading">Standards Followed & App Workflow</h3>
             <ul>
@@ -313,6 +318,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* PROBLEM STATEMENT */}
           <section className="readme-section">
             <h3 className="readme-heading">Why / Problem Statement</h3>
             <p className="readme-intro">
@@ -322,6 +328,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* STAKEHOLDERS / ROLES */}
           <section className="readme-section">
             <h3 className="readme-heading">Core Concepts & Roles</h3>
             <div className="table-responsive">
@@ -356,6 +363,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* KEY FEATURES */}
           <section className="readme-section">
             <h3 className="readme-heading">Key Features</h3>
             <ul>
@@ -368,6 +376,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* TECH STACK */}
           <section className="readme-section">
             <h3 className="readme-heading">Tech Stack</h3>
             <div className="table-responsive">
@@ -393,6 +402,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* DATA MODEL */}
           <section className="readme-section">
             <h3 className="readme-heading">Data Model</h3>
             <div className="code-block">
@@ -410,6 +420,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <hr className="readme-divider" />
 
+          {/* PROJECT STATUS */}
           <section className="readme-section readme-footer-info">
             <div className="readme-note">
               <strong>Project Status:</strong> Built full database schema + RLS policies, owner signup flow, employee invite flow via Resend, and shared login page. Active work continuing on route middleware, dashboard shells, station UI, item CRUD, and signature capture.
@@ -616,6 +627,7 @@ export default function ProjectModal({ project, onClose }) {
       );
     }
 
+    // Default README body fallback
     return (
       <div className="modal-readme-body">
         <p className="readme-intro">{project.description}</p>
@@ -671,7 +683,7 @@ export default function ProjectModal({ project, onClose }) {
         {project.id === 'notiq' && (
           <div className="modal-actions-bar">
             <a
-              href={downloadUrl}
+              href={getDownloadUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-primary"
@@ -683,7 +695,7 @@ export default function ProjectModal({ project, onClose }) {
               Download App
             </a>
             <a
-              href={promoUrl}
+              href={getPromoUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-secondary"
