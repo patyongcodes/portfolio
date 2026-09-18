@@ -676,7 +676,7 @@ export default function ProjectModal({ project, onClose }) {
               Download App
             </a>
             <a
-              href={project.promoVideoUrl || '#'}
+              href={project.promoVideoUrl || "https://www.instagram.com/reel/Dbsm-rfTh06/?stkn=NGYzajRnMzBxODMw"}
               target="_blank"
               rel="noopener noreferrer"
               className="modal-btn modal-btn-secondary"
