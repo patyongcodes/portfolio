@@ -4,7 +4,6 @@
 :root {
   color-scheme: light dark;
   
-  /* Defaults map directly to portfolio variables with fallbacks */
   --cli-loader-bg: var(--color-bg, #0f172a);
   --cli-terminal-bg: var(--color-surface, #18181b);
   --cli-primary: var(--color-primary, #6366f1);
@@ -19,7 +18,6 @@
   --cli-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
 }
 
-/* System Light Mode & Explicit Theme Classes */
 @media (prefers-color-scheme: light) {
   :root {
     --cli-loader-bg: var(--color-bg, #f8fafc);
@@ -69,7 +67,6 @@ body {
   backdrop-filter: blur(16px);
   will-change: opacity, transform, filter;
 
-  /* Entrance animation */
   animation: loaderFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -235,18 +232,6 @@ body {
   gap: 8px;
 }
 
-.cli-spark {
-  color: var(--cli-primary);
-  font-size: 16px;
-  line-height: 1;
-  animation: sparkRotate 12s linear infinite;
-}
-
-@keyframes sparkRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .cli-title {
   font-size: 13px;
   font-weight: 700;
@@ -313,7 +298,7 @@ body {
 
 /* LOG LINES */
 .cli-logs {
-  min-height: 135px;
+  min-height: 155px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -392,7 +377,6 @@ body {
   background: linear-gradient(90deg, var(--cli-primary), #10b981);
   border-radius: 999px;
   will-change: width;
-  /* Reduced transition time to sync seamlessly with JS requestAnimationFrame frame rates */
   transition: width 0.08s linear;
 }
 
@@ -753,7 +737,7 @@ body {
   }
 
   .cli-logs {
-    min-height: 120px;
+    min-height: 140px;
   }
 }
 

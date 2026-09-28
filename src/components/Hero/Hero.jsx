@@ -40,12 +40,13 @@ const TILES = Array.from({ length: TOTAL_TILES }, (_, i) => {
 
 // Terminal execution sequence
 const LOG_MESSAGES = [
-  { threshold: 10, icon: "✶", text: "Initializing codebypat environment & modules", color: "primary" },
-  { threshold: 28, icon: "✔", text: "Verified core dependencies & project config", color: "green" },
-  { threshold: 48, icon: "✔", text: "Loaded design tokens & asset pipeline", color: "green" },
-  { threshold: 68, icon: "✔", text: "Compiled React, Full-Stack & UI components", color: "green" },
-  { threshold: 88, icon: "✔", text: "Established API routes & service layers", color: "green" },
-  { threshold: 100, icon: "✦", text: "Build complete. Launching portfolio...", color: "primary" }
+  { threshold: 10, icon: "✦", text: "Initializing codebypat environment & modules", color: "primary" },
+  { threshold: 25, icon: "✔", text: "Verified core dependencies & project config", color: "green" },
+  { threshold: 42, icon: "✔", text: "Loaded design tokens & asset pipeline", color: "green" },
+  { threshold: 60, icon: "✔", text: "Compiled React, Full-Stack & UI components", color: "green" },
+  { threshold: 78, icon: "✔", text: "Established API routes & service layers", color: "green" },
+  { threshold: 90, icon: "✔", text: "Build complete. Launching environment...", color: "green" },
+  { threshold: 100, icon: "✦", text: "Welcome to my portfolio!", color: "primary" }
 ];
 
 export default function Hero() {
@@ -80,7 +81,7 @@ export default function Hero() {
           setTimeout(() => {
             setIsContentVisible(true);
           }, 350);
-        }, 400);
+        }, 500);
       }
     };
 
@@ -159,7 +160,6 @@ export default function Hero() {
           {/* HEADER BAR */}
           <div className="cli-header">
             <div className="cli-brand">
-              <span className="cli-spark">✶</span>
               <span className="cli-title">codebypat</span>
               <span className="cli-tag">cli</span>
             </div>
