@@ -3,21 +3,8 @@
    ========================================================= */
 :root {
   color-scheme: light dark;
-  --loader-bg: var(--color-bg, #0f172a);
-  --loader-grid: rgba(255, 255, 255, 0.055);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --loader-bg: var(--color-bg, #ffffff);
-    --loader-grid: rgba(0, 0, 0, 0.045);
-  }
-}
-
-[data-theme='light'] .hero-loader,
-body.light-mode .hero-loader {
-  --loader-bg: var(--color-bg, #ffffff);
-  --loader-grid: rgba(0, 0, 0, 0.045);
+  --loader-bg: var(--color-bg);
+  --loader-grid: color-mix(in srgb, var(--color-border) 65%, transparent);
 }
 
 html,
@@ -732,6 +719,16 @@ html:not(.theme-vt) .hero .featured-project-list img {
   width: 32px;
   height: 32px;
   object-fit: contain;
+}
+
+@media (min-width: 641px) {
+  .hero-headline {
+    font-weight: 600;
+  }
+
+  .hero-description {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
