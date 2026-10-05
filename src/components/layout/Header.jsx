@@ -16,7 +16,11 @@ export default function Header() {
 
   // Dark / Light Theme State with localStorage Persistence
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'light';
+    return (
+      document.documentElement.getAttribute('data-theme') ||
+      localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    );
   });
 
   useEffect(() => {

@@ -40,21 +40,21 @@ body {
   margin: 0;
   color: var(--color-ink);
   background: var(--color-bg);
-  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color 0.22s ease-out,
+    color 0.22s ease-out;
 }
 
 h1, h2, h3 {
   font-family: var(--font-sans);
   color: var(--color-ink);
   margin: 0;
-  transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.22s ease-out;
 }
 
 p {
   margin: 0;
   color: var(--color-body);
-  transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.22s ease-out;
 }
 
 a {
