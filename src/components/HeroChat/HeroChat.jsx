@@ -27,11 +27,15 @@ export default function HeroChat() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatMessagesRef = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      const messagesElement = chatMessagesRef.current;
+      messagesElement?.scrollTo({
+        top: messagesElement.scrollHeight,
+        behavior: 'smooth',
+      });
     }
   }, [messages, isLoading, isOpen]);
 
@@ -87,7 +91,7 @@ export default function HeroChat() {
         </div>
 
         {/* Messages */}
-        <div className="chat-messages">
+        <div className="chat-messages" ref={chatMessagesRef}>
           {messages.map((msg, index) => (
             <div key={index} className={`chat-message-row ${msg.sender}`}>
               <span className={`chat-avatar-badge ${msg.sender}`}>
@@ -113,7 +117,6 @@ export default function HeroChat() {
               </div>
             </div>
           )}
-          <div ref={chatEndRef} />
         </div>
 
         {/* Suggestion Chips */}

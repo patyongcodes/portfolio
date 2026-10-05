@@ -1,6 +1,6 @@
 export const PATRICK_INFO = {
   name: "Patrick Carpio",
-  role: "Full-Stack Developer",
+  role: "Full-Stack & AI Engineer",
   status: "Available for full-time roles & freelance projects",
   location: "San Juan, Calabarzon, Philippines (GMT+8)",
   email: "patrick.carpio1604@gmail.com",
@@ -14,11 +14,13 @@ export const PATRICK_INFO = {
   },
   techStack: {
     frontend: ["React", "Flutter", "Vite", "JavaScript (ES6+)", "HTML5", "CSS3 / Modern Styling"],
-    backend: ["Node.js", "Express", "RESTful APIs"],
+    backend: ["Node.js", "Express", "RESTful APIs", "Python"],
+    ai: ["Gemini API", "Groq SDK", "LLM Integration", "AI Agent Development"],
     tools: ["Git", "GitHub", "npm", "Postman", "Vercel / Cloud Hosting"]
   },
   services: [
     "Full-Stack Web Development",
+    "AI Engineering & Intelligent Systems Integration",
     "Cross-Platform Mobile Application Development",
     "UI/UX Design & Interactive Prototyping",
     "Backend Architecture & API Integration"

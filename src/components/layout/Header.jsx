@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import gmailIcon from '../../assets/images/gmail.png';
-import instagramIcon from '../../assets/images/instagram.png';
-import linkedinIcon from '../../assets/images/linkedin.png';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -100,81 +97,59 @@ export default function Header() {
   const isHeaderVisible = !isScrolled || isHoverNearTop || isMenuOpen;
 
   return (
-    <header className={`site-header ${!isHeaderVisible ? 'header-hidden' : ''}`}>
-      <a 
-        href="#home" 
-        className="logo" 
-        onClick={(e) => handleNavClick(e, '#home')}
-      >
-        codebypat
-      </a>
+    <header className={`site-header ${isScrolled ? 'is-scrolled' : ''} ${!isHeaderVisible ? 'header-hidden' : ''}`}>
+      <div className="header-inner">
+        <a
+          href="#home"
+          className="logo"
+          onClick={(e) => handleNavClick(e, '#home')}
+        >
+          codebypat
+        </a>
 
-      <nav className={`nav ${isMenuOpen ? 'is-open' : ''}`}>
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="nav-link"
-            onClick={(e) => handleNavClick(e, link.href)}
+        <nav className={`nav ${isMenuOpen ? 'is-open' : ''}`}>
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="nav-link"
+              onClick={(e) => handleNavClick(e, link.href)}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="header-actions">
+          <button
+            className={`theme-toggle ${theme === 'dark' ? 'is-dark' : ''}`}
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            {link.label}
-          </a>
-        ))}
-      </nav>
+            <span className="toggle-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+              </svg>
+            </span>
+            <span className="toggle-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+              </svg>
+            </span>
+          </button>
 
-      <div className="header-actions">
-        {/* Animated Dark/Light Theme Toggle Button */}
-        <button 
-          className={`theme-toggle ${theme === 'dark' ? 'is-dark' : ''}`}
-          onClick={toggleTheme} 
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {/* Moon Icon */}
-          <span className="theme-icon icon-moon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          </span>
-
-          {/* Sun Icon */}
-          <span className="theme-icon icon-sun">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="3" y2="12" />
-              <line x1="21" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
-          </span>
-        </button>
-
-        <div className="socials">
-          <a href="mailto:patrick.carpio1604@gmail.com" aria-label="Email" className="social-icon">
-            <img src={gmailIcon} alt="Gmail" />
-          </a>
-          <a href="https://www.instagram.com/pty.ng?igsi=b3c0MzNuZHh6cG5l" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
-            <img src={instagramIcon} alt="Instagram" />
-          </a>
-          <a href="https://www.linkedin.com/in/patrick.carpio" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-icon">
-            <img src={linkedinIcon} alt="LinkedIn" />
-          </a>
+          <button
+            className={`menu-toggle ${isMenuOpen ? 'is-active' : ''}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle Menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className="hamburger-bar" />
+            <span className="hamburger-bar" />
+            <span className="hamburger-bar" />
+          </button>
         </div>
-
-        {/* Mobile Navigation Toggle Button */}
-        <button 
-          className={`menu-toggle ${isMenuOpen ? 'is-active' : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-          aria-expanded={isMenuOpen}
-        >
-          <span className="hamburger-bar" />
-          <span className="hamburger-bar" />
-          <span className="hamburger-bar" />
-        </button>
       </div>
     </header>
   );
