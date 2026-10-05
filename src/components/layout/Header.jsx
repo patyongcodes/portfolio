@@ -37,7 +37,7 @@ export default function Header() {
     window.clearTimeout(themeTransitionTimer.current);
     themeTransitionTimer.current = window.setTimeout(() => {
       root.classList.remove('theme-switching');
-    }, 350);
+    }, 500); // Synchronized with 500ms CSS theme transition duration
 
     setTheme(nextTheme);
   };

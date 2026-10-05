@@ -114,16 +114,12 @@ export default function Hero() {
   const [isContentVisible, setIsContentVisible] = useState(false);
 
   useEffect(() => {
-    // Prevent background scrolling while loader is active
     document.body.style.overflow = 'hidden';
 
-    // 1. Text slides in from left & fades in automatically (1.25s curve)
-    // 2. Trigger slide-out to right & fade-out after comfortable, deliberate reading duration
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
     }, 2800);
 
-    // 3. Remove loader and reveal the hero content
     const completeTimer = setTimeout(() => {
       setIsLoading(false);
       setIsContentVisible(true);
@@ -176,71 +172,69 @@ export default function Hero() {
 
   return (
     <>
-    <section className={`hero ${isContentVisible ? 'is-loaded' : ''}`} id="home">
-      {/* WELCOME LOADER OVERLAY */}
-      {isLoading && (
-        <div
-          className={`hero-loader ${isExiting ? 'fade-out' : ''}`}
-          aria-hidden={!isLoading}
-          role="status"
-          aria-label="Welcome to my Portfolio"
-        >
-          {/* ARCHITECTURAL GRID LINES BACKGROUND */}
-          <div className="loader-bg-grid" aria-hidden="true" />
+      <section className={`hero ${isContentVisible ? 'is-loaded' : ''}`} id="home">
+        {/* WELCOME LOADER OVERLAY */}
+        {isLoading && (
+          <div
+            className={`hero-loader ${isExiting ? 'fade-out' : ''}`}
+            aria-hidden={!isLoading}
+            role="status"
+            aria-label="Welcome to my Portfolio"
+          >
+            {/* ARCHITECTURAL GRID LINES BACKGROUND */}
+            <div className="loader-bg-grid" aria-hidden="true" />
 
-          {/* TOP LEFT CORNER LABEL */}
-          <div className="loader-corner loader-corner-top-left">
-            <span>Patrick B. Carpio</span>
-          </div>
-
-          {/* BOTTOM RIGHT CORNER LABEL */}
-          <div className="loader-corner loader-corner-bottom-right">
-            <span>Software Developer & AI Engineer</span>
-          </div>
-
-          {/* GIANT WELCOME TEXT (SLIDE IN FROM LEFT / SLIDE OUT TO RIGHT) */}
-          <div className={`loader-welcome-wrapper ${isExiting ? 'slide-out' : 'slide-in'}`}>
-            <h1 className="loader-welcome-text">
-              <span className="loader-welcome-line loader-line-1">Welcome to my</span>
-              <span className="loader-welcome-line loader-line-2">Portfolio</span>
-            </h1>
-          </div>
-        </div>
-      )}
-
-      <div className="hero-bg" aria-hidden="true" />
-
-      <div className="hero-content">
-        <header className="resume-masthead">
-          <img className="resume-avatar" src={profilePhoto} alt="" />
-          <div className="resume-identity">
-            <div className="resume-name-line">
-              <h1>Patrick B. Carpio</h1>
-              <span className="verified-badge" role="img" aria-label="Verified profile">
-                <VerifiedIcon />
-              </span>
+            {/* TOP LEFT CORNER LABEL */}
+            <div className="loader-corner loader-corner-top-left">
+              <span>Patrick B. Carpio</span>
             </div>
-            <div className="resume-program">
-              <GraduationCapIcon />
-              <span>BS Computer Engineering Major in Artificial Intelligence</span>
+
+            {/* BOTTOM RIGHT CORNER LABEL */}
+            <div className="loader-corner loader-corner-bottom-right">
+              <span>Software Developer & AI Engineer</span>
             </div>
-            <h2 className="hero-headline">
-              Building intelligent solutions for a better tomorrow.
-            </h2>
+
+            {/* GIANT WELCOME TEXT */}
+            <div className={`loader-welcome-wrapper ${isExiting ? 'slide-out' : 'slide-in'}`}>
+              <h1 className="loader-welcome-text">
+                <span className="loader-welcome-line loader-line-1">Welcome to my</span>
+                <span className="loader-welcome-line loader-line-2">Portfolio</span>
+              </h1>
+            </div>
           </div>
-        </header>
+        )}
 
-        <div className="hero-intro">
-          <p className="hero-role">Software Developer &amp; AI Engineer</p>
-          <p className="hero-description">
-            I am a software developer and AI engineer with experience in web, mobile, and AI
-            development using React, Flutter, Node.js, Express, and Python. I am committed to
-            strengthening my technical skills, broadening my knowledge of emerging technologies,
-            and applying what I learn to build practical, well-crafted solutions. I approach each
-            challenge with curiosity, discipline, and a strong eagerness to learn.
-          </p>
+        <div className="hero-content">
+          <header className="resume-masthead">
+            <img className="resume-avatar" src={profilePhoto} alt="" />
+            <div className="resume-identity">
+              <div className="resume-name-line">
+                <h1>Patrick B. Carpio</h1>
+                <span className="verified-badge" role="img" aria-label="Verified profile">
+                  <VerifiedIcon />
+                </span>
+              </div>
+              <div className="resume-program">
+                <GraduationCapIcon />
+                <span>BS Computer Engineering Major in Artificial Intelligence</span>
+              </div>
+              <h2 className="hero-headline">
+                Building intelligent solutions for a better tomorrow.
+              </h2>
+            </div>
+          </header>
 
-          <div className="hero-actions">
+          <div className="hero-intro">
+            <p className="hero-role">Software Developer &amp; AI Engineer</p>
+            <p className="hero-description">
+              I am a software developer and AI engineer with experience in web, mobile, and AI
+              development using React, Flutter, Node.js, Express, and Python. I am committed to
+              strengthening my technical skills, broadening my knowledge of emerging technologies,
+              and applying what I learn to build practical, well-crafted solutions. I approach each
+              challenge with curiosity, discipline, and a strong eagerness to learn.
+            </p>
+
+            <div className="hero-actions">
               <a href="#projects" className="hero-cta" onClick={handleExploreClick}>
                 <span>Explore Portfolio</span>
                 <ArrowDownIcon />
@@ -249,49 +243,48 @@ export default function Hero() {
                 <PhoneIcon />
                 <span>My Contacts</span>
               </a>
+            </div>
           </div>
+
+          <section className="hero-stats" aria-label="Project experience">
+            {STATS.map(({ Icon: StatIcon, value, label, text, techs }) => (
+              <article className="stat-item" key={label}>
+                <div className="stat-heading">
+                  <StatIcon />
+                  <span>{label}</span>
+                </div>
+                {techs ? (
+                  <ul className="tech-stack-list" aria-label="Technology stack">
+                    {techs.map(({ name, image }) => (
+                      <li key={name}>
+                        <img src={image} alt="" />
+                        <span>{name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <>
+                    <p className="stats-value">{value}</p>
+                    <p className="stats-text">{text}</p>
+                  </>
+                )}
+              </article>
+            ))}
+            <div className="hero-featured-projects">
+              <h2><StarIcon />Featured Projects</h2>
+              <ul className="featured-project-list">
+                {FEATURED_PROJECTS.map(({ name, image }) => (
+                  <li key={name}>
+                    <img src={image} alt={name} />
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
         </div>
-
-        <section className="hero-stats" aria-label="Project experience">
-          {STATS.map(({ Icon: StatIcon, value, label, text, techs }) => (
-            <article className="stat-item" key={label}>
-              <div className="stat-heading">
-                <StatIcon />
-                <span>{label}</span>
-              </div>
-              {techs ? (
-                <ul className="tech-stack-list" aria-label="Technology stack">
-                  {techs.map(({ name, image }) => (
-                    <li key={name}>
-                      <img src={image} alt="" />
-                      <span>{name}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <>
-                  <p className="stats-value">{value}</p>
-                  <p className="stats-text">{text}</p>
-                </>
-              )}
-            </article>
-          ))}
-          <div className="hero-featured-projects">
-            <h2><StarIcon />Featured Projects</h2>
-            <ul className="featured-project-list">
-              {FEATURED_PROJECTS.map(({ name, image }) => (
-                <li key={name}>
-                  <img src={image} alt={name} />
-                  <span>{name}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-      </div>
-    </section>
-    {!isLoading && <HeroChat />}
+      </section>
+      {!isLoading && <HeroChat />}
     </>
   );
 }

@@ -44,7 +44,6 @@ body {
   overflow: hidden;
   touch-action: none;
   overscroll-behavior: none;
-  will-change: opacity;
   animation: loaderFadeIn 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
   transition: opacity 1.05s cubic-bezier(0.19, 1, 0.22, 1),
               visibility 1.05s cubic-bezier(0.19, 1, 0.22, 1);
@@ -90,7 +89,6 @@ body {
   max-width: 96vw;
   padding: 0 16px;
   box-sizing: border-box;
-  will-change: transform, opacity;
 }
 
 .loader-welcome-wrapper.slide-in {
@@ -291,12 +289,11 @@ body {
   }
 }
 
-
 /* =========================================================
    RESUME-STYLE HERO
    ========================================================= */
 .hero {
-  --resume-rule: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --resume-rule: var(--color-border);
   --resume-accent: var(--color-primary);
   position: relative;
   min-height: 100vh;
@@ -308,25 +305,14 @@ body {
   overflow: hidden;
 }
 
-@supports not (color: color-mix(in srgb, red 50%, blue)) {
-  .hero {
-    --resume-rule: rgba(127, 127, 127, 0.3);
-  }
-}
-
 /* Prevent image tags from processing useless color transitions */
 .hero img {
   transition: none !important;
 }
 
+/* Redundant layer disabled; body background handles state transitions */
 .hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--color-bg);
-  /* Synchronized with global 0.5s smooth transition curve */
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: background-color;
+  display: none;
 }
 
 .hero-content {
@@ -499,10 +485,7 @@ body {
   font-size: 0.86rem;
   font-weight: 650;
   text-decoration: none;
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .hero-cta::before,
@@ -556,10 +539,7 @@ body {
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .hero-link svg {
@@ -573,7 +553,7 @@ body {
 
 .hero-cta:focus-visible,
 .hero-link:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--resume-accent) 45%, transparent);
+  outline: 3px solid var(--resume-accent);
   outline-offset: 3px;
 }
 
@@ -799,12 +779,12 @@ body {
   }
 
   .stat-item + .stat-item {
-    border-top: 1px solid color-mix(in srgb, var(--resume-rule) 65%, transparent);
+    border-top: 1px solid var(--resume-rule);
   }
 
   .hero-featured-projects {
     padding: 16px 0 0;
-    border-top: 1px solid color-mix(in srgb, var(--resume-rule) 65%, transparent);
+    border-top: 1px solid var(--resume-rule);
     border-left: 0;
   }
 

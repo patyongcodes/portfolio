@@ -27,13 +27,10 @@ html {
   right: 0;
   z-index: 100;
   background-color: var(--bg-header);
-  backdrop-filter: blur(0);
-  -webkit-backdrop-filter: blur(0);
   border: none;
   outline: none;
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.22s ease-out,
-    backdrop-filter 0.35s ease;
+    background-color 0.22s ease-out;
 }
 
 .site-header.is-scrolled {
@@ -245,7 +242,6 @@ html {
     font-size: 16.2px;
     font-weight: 600;
   }
-
 }
 
 @media (max-width: 480px) {
