@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -10,6 +10,7 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const themeTransitionTimer = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHoverNearTop, setIsHoverNearTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +31,14 @@ export default function Header() {
 
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const root = document.documentElement;
+
+    root.classList.add('theme-switching');
+    window.clearTimeout(themeTransitionTimer.current);
+    themeTransitionTimer.current = window.setTimeout(() => {
+      root.classList.remove('theme-switching');
+    }, 350);
+
     setTheme(nextTheme);
   };
 

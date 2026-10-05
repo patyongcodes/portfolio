@@ -57,6 +57,15 @@ p {
   transition: color 0.22s ease-out;
 }
 
+/* Keep entrance stagger delays from making theme changes feel uneven. */
+html.theme-switching .reveal-on-scroll,
+html.theme-switching .project-card,
+html.theme-switching .certification-row,
+html.theme-switching .interest-card,
+html.theme-switching .footer-col {
+  transition-delay: 0s !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;
