@@ -314,12 +314,19 @@ body {
   }
 }
 
+/* Prevent image tags from processing useless color transitions */
+.hero img {
+  transition: none !important;
+}
+
 .hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   background: var(--color-bg);
-  transition: background-color 0.22s ease-out;
+  /* Synchronized with global 0.5s smooth transition curve */
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: background-color;
 }
 
 .hero-content {
@@ -492,7 +499,10 @@ body {
   font-size: 0.86rem;
   font-weight: 650;
   text-decoration: none;
-  transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s ease;
 }
 
 .hero-cta::before,
@@ -546,7 +556,10 @@ body {
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s ease;
 }
 
 .hero-link svg {
