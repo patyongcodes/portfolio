@@ -29,6 +29,13 @@ body {
    WELCOME LOADER OVERLAY
    ========================================================= */
 .hero-loader {
+  /* --loader-exit is set inline from Hero.jsx (LOADER_EXIT_MS) so the CSS
+     and the unmount timer always agree. 1400ms is only a fallback. */
+  --loader-exit: 1400ms;
+  --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --loader-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --loader-shift: 56px;
+
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -44,15 +51,16 @@ body {
   overflow: hidden;
   touch-action: none;
   overscroll-behavior: none;
-  animation: loaderFadeIn 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
-  transition: opacity 1.05s cubic-bezier(0.19, 1, 0.22, 1),
-              visibility 1.05s cubic-bezier(0.19, 1, 0.22, 1),
-              background-color 0.3s ease;
+  /* "backwards" (not "both"): a forwards fill would pin opacity at 1 and
+     override the .fade-out rule below, so the exit fade would never play. */
+  animation: loaderFadeIn 0.9s ease-out backwards;
+  transition: opacity var(--loader-exit) cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear var(--loader-exit),
+              background-color var(--hero-theme-transition);
 }
 
 @keyframes loaderFadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .hero-loader.fade-out {
@@ -73,6 +81,11 @@ body {
   background-size: 52px 52px;
   mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
   -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+  animation: loaderGridIn 1.8s ease-out backwards;
+}
+
+@keyframes loaderGridIn {
+  from { opacity: 0; }
 }
 
 /* =========================================================
@@ -92,55 +105,39 @@ body {
   box-sizing: border-box;
 }
 
-.loader-welcome-wrapper.slide-in {
-  animation: welcomeSlideIn 1.25s cubic-bezier(0.19, 1, 0.22, 1) both;
+/* IN: each line glides in on its own, one after the other */
+.loader-welcome-wrapper.slide-in .loader-welcome-line {
+  animation: loaderLineIn 1.7s var(--loader-ease) both;
 }
 
+.loader-welcome-wrapper.slide-in .loader-line-1 { animation-delay: 0.2s; }
+.loader-welcome-wrapper.slide-in .loader-line-2 { animation-delay: 0.5s; }
+
+@keyframes loaderLineIn {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--loader-shift) * -1));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* OUT: the text leaves slightly ahead of the overlay fade, so it never
+   lingers on a half-transparent background */
 .loader-welcome-wrapper.slide-out {
-  animation: welcomeSlideOut 1.05s cubic-bezier(0.19, 1, 0.22, 1) both;
+  animation: loaderTextOut calc(var(--loader-exit) * 0.85) var(--loader-ease-inout) both;
 }
 
-@keyframes welcomeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-56px);
-  }
-  100% {
+@keyframes loaderTextOut {
+  from {
     opacity: 1;
     transform: translateX(0);
   }
-}
-
-@keyframes welcomeSlideOut {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
+  to {
     opacity: 0;
-    transform: translateX(56px);
-  }
-}
-
-@keyframes welcomeSlideInMobile {
-  0% {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes welcomeSlideOutMobile {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(24px);
+    transform: translateX(var(--loader-shift));
   }
 }
 
@@ -156,8 +153,8 @@ body {
   opacity: 0.72;
   user-select: none;
   pointer-events: none;
-  animation: cornerFadeIn 1.15s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  transition: color 0.3s ease;
+  animation: cornerFadeIn 1.5s var(--loader-ease) 0.5s both;
+  transition: color var(--hero-theme-transition);
 }
 
 @keyframes cornerFadeIn {
@@ -196,7 +193,7 @@ body {
 
 /* GIANT HEADLINE */
 .loader-welcome-text {
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(3.6rem, 9vw, 8.5rem);
   font-weight: 700;
   font-synthesis: none;
@@ -218,7 +215,7 @@ body {
   width: 100%;
   white-space: nowrap;
   text-align: center;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .loader-line-1 {
@@ -232,6 +229,7 @@ body {
 /* LOADER RESPONSIVE SCALING */
 @media (max-width: 768px) {
   .hero-loader {
+    --loader-shift: 24px;
     padding: 16px;
   }
 
@@ -259,14 +257,6 @@ body {
   .loader-welcome-wrapper {
     padding: 0 8px;
     max-width: 100%;
-  }
-
-  .loader-welcome-wrapper.slide-in {
-    animation: welcomeSlideInMobile 1.15s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  }
-
-  .loader-welcome-wrapper.slide-out {
-    animation: welcomeSlideOutMobile 0.95s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   }
 
   .loader-welcome-text {
@@ -306,12 +296,29 @@ body {
   align-items: flex-start;
   box-sizing: border-box;
   overflow: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Hero-level theme timing. Kept equal to the global .theme-switching rule
+     in App.css (0.25s ease-out); that rule is !important, so it is the one
+     that actually drives the light/dark switch. */
+  --hero-theme-transition: 0.25s ease-out;
+  /* No transition here: .hero has no background of its own, and a `color`
+     transition on the container forces every inheriting child to re-resolve
+     its style on each frame of the theme switch. */
 }
 
-/* Prevent image tags from processing useless color transitions */
+/* Prevent image tags from processing useless color transitions.
+   will-change gives each image its own compositor layer so the text color
+   fades around them don't force the images to be re-rasterized every frame. */
 .hero img {
   transition: none !important;
+  will-change: transform;
+}
+
+/* ...except the two framed images. With `transition: none` above, their border
+   color snapped instantly while all the text around them faded. This is more
+   specific, so it wins over both the rule above and .theme-switching *. */
+html:not(.theme-vt) .hero .resume-avatar,
+html:not(.theme-vt) .hero .featured-project-list img {
+  transition: border-color var(--hero-theme-transition) !important;
 }
 
 /* Redundant layer disabled; body background handles state transitions */
@@ -324,18 +331,29 @@ body {
   z-index: 1;
   width: min(100%, 960px);
   margin: 0 auto;
+}
+
+/* Hidden until the loader starts handing over */
+.hero-content > * {
   opacity: 0;
-  transform: translateY(18px);
 }
 
-.hero.is-loaded .hero-content {
-  animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+/* Fade-in after the loader: masthead -> intro -> stats, one after another.
+   "backwards" fill = hidden during each delay, and nothing is left pinned
+   (no forwards-filled opacity/transform) once the animation ends. */
+.hero.is-loaded .hero-content > * {
+  opacity: 1;
+  animation: heroFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-@keyframes heroEntrance {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.hero.is-loaded .hero-content > .resume-masthead { animation-delay: 0s; }
+.hero.is-loaded .hero-content > .hero-intro      { animation-delay: 0.18s; }
+.hero.is-loaded .hero-content > .hero-stats      { animation-delay: 0.36s; }
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
   }
 }
 
@@ -356,7 +374,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   object-position: center 24%;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--hero-theme-transition);
 }
 
 .resume-identity {
@@ -385,7 +403,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.1;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .verified-badge {
@@ -414,7 +432,7 @@ body {
   font-size: 0.86rem;
   line-height: 1.5;
   text-align: left;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .resume-program svg {
@@ -429,7 +447,7 @@ body {
   stroke-linejoin: round;
   stroke-width: 1.6;
   color: var(--resume-accent);
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-intro {
@@ -445,7 +463,7 @@ body {
   font-weight: 750;
   letter-spacing: -0.035em;
   line-height: 1.08;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-headline {
@@ -458,7 +476,7 @@ body {
   line-height: 1.3;
   letter-spacing: -0.025em;
   text-align: left;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-description {
@@ -467,7 +485,7 @@ body {
   color: var(--color-body);
   font-size: 0.99rem;
   line-height: 1.75;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-actions {
@@ -496,7 +514,7 @@ body {
   font-size: 0.86rem;
   font-weight: 650;
   text-decoration: none;
-  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease, background-color var(--hero-theme-transition), border-color var(--hero-theme-transition), color var(--hero-theme-transition);
 }
 
 .hero-cta::before,
@@ -550,7 +568,7 @@ body {
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease, border-color var(--hero-theme-transition), color var(--hero-theme-transition);
 }
 
 .hero-link svg {
@@ -578,7 +596,7 @@ body {
   min-width: 0;
   padding: 12px 20px 0;
   border-left: 1px solid var(--resume-rule);
-  transition: border-color 0.3s ease;
+  transition: border-color var(--hero-theme-transition);
 }
 
 .stat-item:first-of-type {
@@ -599,7 +617,7 @@ body {
   font-size: 0.76rem;
   font-weight: 600;
   line-height: 1.4;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .stat-heading svg {
@@ -607,14 +625,14 @@ body {
   height: 17px;
   flex: none;
   color: var(--resume-accent);
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-featured-projects {
   min-width: 0;
   padding: 12px 0 0 20px;
   border-left: 1px solid var(--resume-rule);
-  transition: border-color 0.3s ease;
+  transition: border-color var(--hero-theme-transition);
 }
 
 .hero-featured-projects h2 {
@@ -626,7 +644,7 @@ body {
   font-size: 0.76rem;
   font-weight: 600;
   line-height: 1.4;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .hero-featured-projects h2 svg {
@@ -634,7 +652,7 @@ body {
   height: 17px;
   flex: none;
   color: var(--resume-accent);
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .featured-project-list {
@@ -653,7 +671,7 @@ body {
   font-weight: 600;
   line-height: 1.3;
   text-align: center;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .featured-project-list img {
@@ -664,7 +682,7 @@ body {
   border: 1px solid var(--resume-rule);
   border-radius: 10px;
   object-fit: contain;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--hero-theme-transition);
 }
 
 .stats-value {
@@ -675,7 +693,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .stats-text {
@@ -683,7 +701,7 @@ body {
   color: var(--color-body);
   font-size: 0.8rem;
   line-height: 1.5;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .tech-stack-list {
@@ -706,7 +724,7 @@ body {
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
-  transition: color 0.3s ease;
+  transition: color var(--hero-theme-transition);
 }
 
 .tech-stack-list img {
@@ -802,14 +820,14 @@ body {
 
   .stat-item + .stat-item {
     border-top: 1px solid var(--resume-rule);
-    transition: border-color 0.3s ease;
+    transition: border-color var(--hero-theme-transition);
   }
 
   .hero-featured-projects {
     padding: 16px 0 0;
     border-top: 1px solid var(--resume-rule);
     border-left: 0;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--hero-theme-transition);
   }
 
   .featured-project-list {
@@ -852,18 +870,19 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-loader,
+  .loader-bg-grid,
   .loader-welcome-wrapper,
+  .loader-welcome-wrapper.slide-in .loader-welcome-line,
   .loader-corner {
     animation: none;
     transition: none;
   }
 
-  .hero-content {
+  .hero-content > * {
     opacity: 1;
-    transform: none;
   }
 
-  .hero.is-loaded .hero-content {
+  .hero.is-loaded .hero-content > * {
     animation: none;
   }
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { flushSync } from 'react-dom';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -15,7 +16,6 @@ export default function Header() {
   const [isHoverNearTop, setIsHoverNearTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Dark / Light Theme State with localStorage Persistence
   const [theme, setTheme] = useState(() => {
     return (
       document.documentElement.getAttribute('data-theme') ||
@@ -29,34 +29,64 @@ export default function Header() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  const viewTransitionRef = useRef(null);
+
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     const root = document.documentElement;
 
+    const applyTheme = () => {
+      root.setAttribute('data-theme', nextTheme);
+      // flushSync so React updates the toggle icon inside the same snapshot
+      flushSync(() => setTheme(nextTheme));
+    };
+
+    const canUseViewTransition =
+      typeof document.startViewTransition === 'function' &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // PREFERRED PATH: the browser screenshots the old theme and the new theme
+    // and cross-fades the two images. No element animates individually, so the
+    // cost no longer depends on how many elements a section has.
+    if (canUseViewTransition) {
+      root.classList.add('theme-vt'); // turns off per-element transitions (App.css)
+      const transition = document.startViewTransition(applyTheme);
+      viewTransitionRef.current = transition;
+      transition.finished
+        .catch(() => {})
+        .finally(() => {
+          if (viewTransitionRef.current === transition) {
+            root.classList.remove('theme-vt');
+          }
+        });
+      return;
+    }
+
+    // FALLBACK (older browsers / reduced motion): per-element transitions
     root.classList.add('theme-switching');
     window.clearTimeout(themeTransitionTimer.current);
     themeTransitionTimer.current = window.setTimeout(() => {
       root.classList.remove('theme-switching');
-    }, 500); // Synchronized with 500ms CSS theme transition duration
+    }, 500);
 
-    setTheme(nextTheme);
+    applyTheme();
   };
 
   useEffect(() => {
+    // Only dispatch state update if scrolled threshold state actually changed[cite: 19]
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      const scrolled = window.scrollY > 100;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
     };
 
+    // Only dispatch state update if 80px boundary state actually changed[cite: 19]
     const handleMouseMove = (e) => {
-      if (e.clientY <= 80) {
-        setIsHoverNearTop(true);
-      } else {
-        setIsHoverNearTop(false);
-      }
+      const nearTop = e.clientY <= 80;
+      setIsHoverNearTop((prev) => (prev !== nearTop ? nearTop : prev));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -76,10 +106,9 @@ export default function Header() {
     const targetPosition =
       targetElement.getBoundingClientRect().top + startPosition - headerOffset;
     const distance = targetPosition - startPosition;
-    
-    const duration = 500; 
-    const startTime = performance.now();
 
+    const duration = 500;
+    const startTime = performance.now();
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
     const step = (currentTime) => {

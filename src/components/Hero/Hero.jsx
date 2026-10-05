@@ -108,6 +108,12 @@ const FEATURED_PROJECTS = [
   { name: 'SmartFit', image: smartfitImage },
 ];
 
+/* Loader timeline (ms). LOADER_EXIT_MS is also pushed into the CSS as
+   --loader-exit, so the fade-out and the unmount can't drift apart. */
+const LOADER_HOLD_MS = 3200;   // loader stays up this long before it starts leaving
+const LOADER_EXIT_MS = 1400;   // length of the exit animation
+const CONTENT_REVEAL_AT = 0.45; // hero starts fading in at 45% of the exit (crossfade)
+
 export default function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
@@ -118,19 +124,25 @@ export default function Hero() {
 
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 2800);
+    }, LOADER_HOLD_MS);
 
+    // Start the hero fade-in while the loader is still fading out
+    const revealTimer = setTimeout(() => {
+      setIsContentVisible(true);
+    }, LOADER_HOLD_MS + LOADER_EXIT_MS * CONTENT_REVEAL_AT);
+
+    // Remove the loader only after its exit animation has fully finished
     const completeTimer = setTimeout(() => {
       setIsLoading(false);
-      setIsContentVisible(true);
       document.body.style.overflow = '';
-    }, 3850);
+    }, LOADER_HOLD_MS + LOADER_EXIT_MS + 60);
 
     const img = new Image();
     img.src = profilePhoto;
 
     return () => {
       clearTimeout(exitTimer);
+      clearTimeout(revealTimer);
       clearTimeout(completeTimer);
       document.body.style.overflow = '';
     };
@@ -177,6 +189,7 @@ export default function Hero() {
         {isLoading && (
           <div
             className={`hero-loader ${isExiting ? 'fade-out' : ''}`}
+            style={{ '--loader-exit': `${LOADER_EXIT_MS}ms` }}
             aria-hidden={!isLoading}
             role="status"
             aria-label="Welcome to my Portfolio"

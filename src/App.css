@@ -1,1 +1,122 @@
-/* Global layout styles */
+/* =========================================================
+   GLOBAL DESIGN SYSTEM & THEME VARIABLES
+   ========================================================= */
+:root {
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Light Theme Defaults */
+  --color-bg: #ffffff;
+  --color-ink: #0f172a;
+  --color-body: #475569;
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-border: #e2e8f0;
+}
+
+[data-theme='dark'] {
+  /* Dark Theme Variables */
+  --color-bg: #0f172a;
+  --color-ink: #f8fafc;
+  --color-body: #94a3b8;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #60a5fa;
+  --color-border: #1e293b;
+}
+
+/* Enable transitions ONLY during manual theme switches to avoid scroll lag.
+   NOTE: because this is !important and replaces the whole `transition` list,
+   every component-level `transition` is ignored while the class is on <html>.
+   Anything that needs transform/opacity during a switch must be re-added below. */
+.theme-switching,
+.theme-switching * {
+  transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out !important;
+}
+
+/* The hero has many text and UI descendants. Transitioning every one of
+   their colors at once causes a burst of repaints on the per-element
+   fallback path. Let the hero update in one paint; other sections retain
+   their cross-fade, and the View Transition API path is unaffected. */
+.theme-switching .hero,
+.theme-switching .hero * {
+  transition: none !important;
+}
+
+/* The theme button animates transform + opacity itself (sun <-> moon spin/fade).
+   The rule above wiped those out, so the icon used to snap instead of animating. */
+.theme-switching .theme-toggle,
+.theme-switching .theme-toggle * {
+  transition: background-color 0.25s ease-out,
+              color 0.25s ease-out,
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.22s ease-out !important;
+}
+
+/* ---------------------------------------------------------
+   VIEW TRANSITION THEME SWITCH (see toggleTheme in Header.jsx)
+   While the browser cross-fades two screenshots, nothing underneath may
+   animate on its own, otherwise the new theme would fade in twice.
+   --------------------------------------------------------- */
+html.theme-vt,
+html.theme-vt *,
+html.theme-vt *::before,
+html.theme-vt *::after {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+}
+
+/* =========================================================
+   BASE RESETS & CORE LAYOUT
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  color: var(--color-body);
+  overflow-x: hidden;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
