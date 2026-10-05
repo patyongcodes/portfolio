@@ -26,17 +26,7 @@ export default function Header() {
 
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
-
-    // Fallback for browsers without View Transitions API support
-    if (!document.startViewTransition) {
-      setTheme(nextTheme);
-      return;
-    }
-
-    // Trigger smooth transition
-    document.startViewTransition(() => {
-      setTheme(nextTheme);
-    });
+    setTheme(nextTheme);
   };
 
   useEffect(() => {

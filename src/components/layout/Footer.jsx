@@ -134,6 +134,7 @@ export default function Footer() {
           </span>
         </div>
       </div>
+      <p className="footer-credit">Designed and developed by Patrick Carpio</p>
     </footer>
   );
 }

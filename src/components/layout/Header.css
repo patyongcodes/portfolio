@@ -6,19 +6,15 @@ html {
 :root {
   --bg-header: rgba(255, 255, 255, 0.94);
   --bg-header-scrolled: rgba(255, 255, 255, 0.76);
-  --border-header: #e5e7eb;
-  --text-header: #111111;
-  --brand-header: #2563eb;
-  --toggle-hover-bg: #f3f4f6;
+  --border-header: var(--color-border);
+  --text-header: var(--color-ink);
+  --brand-header: var(--color-primary);
+  --toggle-hover-bg: var(--color-card);
 }
 
 [data-theme='dark'] {
-  --bg-header: rgba(17, 24, 39, 0.94);
-  --bg-header-scrolled: rgba(17, 24, 39, 0.76);
-  --border-header: #374151;
-  --text-header: #f9fafb;
-  --brand-header: #60a5fa;
-  --toggle-hover-bg: #1f2937;
+  --bg-header: rgba(15, 23, 42, 0.94);
+  --bg-header-scrolled: rgba(15, 23, 42, 0.76);
 }
 
 .site-header {
@@ -36,7 +32,7 @@ html {
   border: none;
   outline: none;
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.35s ease,
+    background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     backdrop-filter 0.35s ease;
 }
 
@@ -276,40 +272,11 @@ html {
   }
 }
 
-/* ===========================
-   UNIFIED PAGE-WIDE VIEW TRANSITIONS
-   =========================== */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-::view-transition-old(root) {
-  animation-name: theme-fade-out;
-}
-
-::view-transition-new(root) {
-  animation-name: theme-fade-in;
-}
-
-@keyframes theme-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes theme-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle,
   .toggle-sun,
   .toggle-moon,
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
+  .site-header {
     transition: none;
-    animation-duration: 0.01ms;
   }
 }

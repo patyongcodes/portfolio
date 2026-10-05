@@ -291,7 +291,7 @@ body {
    ========================================================= */
 .hero {
   --resume-rule: color-mix(in srgb, var(--color-ink) 22%, transparent);
-  --resume-accent: #2563eb;
+  --resume-accent: var(--color-primary);
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
@@ -300,10 +300,6 @@ body {
   align-items: flex-start;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-[data-theme='dark'] .hero {
-  --resume-accent: #60a5fa;
 }
 
 @supports not (color: color-mix(in srgb, red 50%, blue)) {
@@ -317,7 +313,7 @@ body {
   inset: 0;
   z-index: 0;
   background: var(--color-bg);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-content {
@@ -325,6 +321,19 @@ body {
   z-index: 1;
   width: min(100%, 960px);
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.hero.is-loaded .hero-content {
+  animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .resume-masthead {
@@ -486,7 +495,7 @@ body {
   z-index: -1;
   inset: 0;
   border-radius: inherit;
-  background: #1d4ed8;
+  background: var(--color-primary-hover);
   content: '';
   transform: scaleX(0);
   transform-origin: left center;
@@ -505,7 +514,7 @@ body {
 }
 
 .hero-cta:hover {
-  border-color: #1d4ed8;
+  border-color: var(--color-primary-hover);
   color: #fff;
   transform: translateY(-2px);
 }
@@ -640,11 +649,6 @@ body {
   object-fit: contain;
 }
 
-.hero-chat-wrapper {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-}
-
 .stats-value {
   margin: 0 0 5px;
   color: var(--color-ink);
@@ -691,26 +695,6 @@ body {
   object-fit: contain;
 }
 
-.hero .resume-masthead,
-.hero .hero-stats {
-  opacity: 0;
-  transform: translateY(14px);
-}
-
-.hero.is-loaded .resume-masthead,
-.hero.is-loaded .hero-stats {
-  animation: resumeEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero.is-loaded .hero-stats { animation-delay: 0.08s; }
-
-@keyframes resumeEntrance {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 640px) {
   .hero {
     min-height: 100svh;
@@ -736,7 +720,7 @@ body {
   }
 
   .resume-name-line h1 {
-    font-size: clamp(1.13rem, 5.69vw, 1.64rem);
+    font-size: clamp(0.95rem, 4.79vw, 1.38rem);
   }
 
   .verified-badge {
@@ -746,14 +730,14 @@ body {
 
   .resume-program {
     gap: 7px;
-    font-size: 0.59rem;
+    font-size: 0.525rem;
     line-height: 1.35;
     text-align: left;
   }
 
   .resume-program svg {
-    width: 17px;
-    height: 17px;
+    width: 13px;
+    height: 13px;
   }
 
   .hero-intro {
@@ -767,13 +751,14 @@ body {
 
   .hero-headline {
     max-width: 38ch;
-    font-size: 0.77rem;
+    font-size: 0.644rem;
+    font-weight: 400;
     line-height: 1.2;
   }
 
   .hero-description {
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.81rem;
     line-height: 1.55;
   }
 
@@ -834,7 +819,7 @@ body {
   }
 
   .resume-name-line h1 {
-    font-size: 1.08rem;
+    font-size: 0.91rem;
   }
 
   .hero-cta {
@@ -843,14 +828,12 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero .resume-masthead,
-  .hero .hero-stats {
+  .hero-content {
     opacity: 1;
     transform: none;
   }
 
-  .hero.is-loaded .resume-masthead,
-  .hero.is-loaded .hero-stats {
+  .hero.is-loaded .hero-content {
     animation: none;
   }
 
