@@ -10,6 +10,14 @@
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
+  /* Shared timing token for consistent theme morphing */
+  --theme-transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      fill 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                      stroke 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
   color-scheme: light;
   color: var(--color-ink);
   background: var(--color-bg);
@@ -36,25 +44,29 @@
   box-sizing: border-box;
 }
 
+/* Apply unified theme transition across all UI elements */
+body,
+*,
+*::before,
+*::after {
+  transition: var(--theme-transition);
+}
+
 body {
   margin: 0;
   color: var(--color-ink);
   background: var(--color-bg);
-  transition: background-color 0.22s ease-out,
-    color 0.22s ease-out;
 }
 
 h1, h2, h3 {
   font-family: var(--font-sans);
   color: var(--color-ink);
   margin: 0;
-  transition: color 0.22s ease-out;
 }
 
 p {
   margin: 0;
   color: var(--color-body);
-  transition: color 0.22s ease-out;
 }
 
 /* Keep entrance stagger delays from making theme changes feel uneven. */
