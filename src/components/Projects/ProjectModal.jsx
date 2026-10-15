@@ -3,6 +3,9 @@ import './ProjectModal.css';
 
 const NOTIQ_DOWNLOAD_URL = "https://drive.google.com/drive/folders/19M6gVp8ujTpYYta3MBlu-qJ6pIHpDjMC";
 const NOTIQ_PROMO_URL = "https://www.instagram.com/reel/Dbsm-rfTh06/?stkn=NGYzajRnMzBxODMw";
+const project2Image = Object.values(
+  import.meta.glob('../../assets/images/project2.png', { eager: true, import: 'default' })
+)[0];
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -178,6 +181,21 @@ export default function ProjectModal({ project, onClose }) {
               On top of hardware tracking, SmartFit includes an AI-assisted virtual coaching module: users can scan their body via photo, set a physique goal and timeline, and receive a feasibility-checked meal plan and a curated set of exercise tutorials restricted specifically to upper-body/core movements the wearable can verify.
             </p>
           </section>
+
+          {project2Image && (
+            <>
+              <hr className="readme-divider" />
+
+              <section className="readme-section">
+                <h3 className="readme-heading">Project Preview</h3>
+                <img
+                  src={project2Image}
+                  alt="SmartFit project preview"
+                  className="project-modal-image"
+                />
+              </section>
+            </>
+          )}
 
           <hr className="readme-divider" />
 
